@@ -10,6 +10,9 @@
               <img src="https://lh3.googleusercontent.com/d/{{ $item->image }}" class="object-contain shadow-2xl">
             </a>
           @endforeach
+          <a href="#" class="transition duration-300 hover:scale-105">
+            <img src="{{ asset('images/sdg/0.png') }}" class="object-contain shadow-2xl">
+          </a>
         </div>
         <div class="border-b border-gray-200"></div>
       </div>

@@ -12,6 +12,9 @@
             <img src="https://lh3.googleusercontent.com/d/{{ $sdg->image }}" class="object-contain shadow-2xl">
           </a>
         @endforeach
+        <a href="#" class="transition duration-300 hover:scale-105">
+          <img src="{{ asset('images/sdg/0.png') }}" class="object-contain shadow-2xl">
+        </a>
       </div>
       <iframe width="100%" height="500" src="https://www.youtube.com/embed/0XTBYMfZyrM?si=52P5xFl75e3f3yCh"
         title="YouTube video player" frameborder="0"
