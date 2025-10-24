@@ -17,6 +17,7 @@
   <main>
     @yield('content')
   </main>
+  @include('components.web.footer')
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
     lucide.createIcons();
