@@ -1,57 +1,55 @@
-<footer class="text-white">
-  <div class="py-12 bg-blue-600">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold mb-4">
-          Get Started Today
-        </h2>
-        <p class="text-lg text-blue-100">
-          Ready to join our community of learners? Contact us for more information.
-        </p>
+<footer class="border-t border-gray-200">
+  <div class="mx-auto w-full max-w-7xl p-4 py-6 lg:py-8">
+    <div class="md:flex md:justify-between">
+      <div class="mb-6 md:mb-0">
+        <a href={{ route('home') }}>
+          <img src="{{ asset('images/logo.svg') }}" alt="occ-logo" class="h-14 object-contain">
+        </a>
       </div>
-      <div class="grid md:grid-cols-3 gap-8 mb-8 text-center">
+      <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
         <div>
-          <Phone class="h-6 w-6 mx-auto mb-3" />
-          <h3 class="font-semibold mb-2">Telephone</h3>
-          <p class="text-blue-100">
-            <a href="tel:+63885551234" class="hover:underline">
-              (088) 882-3269
-            </a>
-          </p>
+          <h2 class="mb-6 text-sm font-semibold uppercase">Follow us</h2>
+          <ul class="text-gray-500 font-medium">
+            <li class="mb-4">
+              <a href="#" class="hover:underline">Facebook</a>
+            </li>
+          </ul>
         </div>
         <div>
-          <Smartphone class="h-6 w-6 mx-auto mb-3" />
-          <h3 class="font-semibold mb-2">Mobile</h3>
-          <p class="text-blue-100">
-            <a href="tel:+639532609906" class="hover:underline">
-              +63 953 260 9906
-            </a>
-          </p>
+          <h2 class="mb-6 text-sm font-semibold uppercase">Contact us</h2>
+          <ul class="text-gray-500 font-medium">
+            <li class="mb-4">
+              <a href="mailto:opolcommunitycollege@yahoo.com" target="_blank"
+                class="wrap-break-word hover:underline">opolcommunitycollege@yahoo.com</a>
+            </li>
+            <li class="mb-4">
+              <a href="tel:09532609906" target="_blank" class="hover:underline">09532609906</a>
+            </li>
+          </ul>
         </div>
         <div>
-          <Mail class="h-6 w-6 mx-auto mb-3" />
-          <h3 class="font-semibold mb-2">Email</h3>
-          <p class="text-blue-100">
-            <a href="mailto:opolcommunitycollege@yahoo.com" class="hover:underline">
-              opolcommunitycollege@yahoo.com
-            </a>
-          </p>
+          <h2 class="mb-6 text-sm font-semibold uppercase">Legal</h2>
+          <ul class="text-gray-500 font-medium">
+            <li class="mb-4">
+              <a href="#" class="hover:underline">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-  </div>
-  <div class="bg-slate-900 text-center py-8">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="flex items-center justify-center mb-4">
-        <i data-lucide="graduation-cap" class="mr-2"></i>
-        <span class="text-lg font-semibold">{{ config('app.name') }}</span>
+    <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <span class="text-sm text-gray-500 sm:text-center">© {{ date('Y') }} <a href={{ route('home') }}
+          class="hover:underline">{{ config('app.name') }}</a>. All Rights Reserved.
+      </span>
+      <div class="flex mt-4 sm:justify-center sm:mt-0">
+        <a href="#" class="text-gray-500 hover:text-gray-800">
+          <i data-lucide="facebook" class="size-5" stroke-width="1.5"></i>
+        </a>
       </div>
-      <p class="text-gray-400 mb-4">
-        Building tomorrow's leaders, one student at a time.
-      </p>
-      <p class="text-sm text-gray-500">
-        © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
-      </p>
     </div>
   </div>
 </footer>

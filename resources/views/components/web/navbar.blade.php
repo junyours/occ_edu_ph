@@ -1,100 +1,140 @@
-@php
-  $items = [
-    ['name' => 'Home', 'route' => 'home'],
-    [
-      'name' => 'Services',
-      'subitems' => [
-        ['name' => 'Enrollment System', 'route' => 'https://occph.com/login'],
-      ]
-    ],
-    ['name' => 'SDG', 'route' => 'sdg'],
-  ]
-@endphp
-
+<div class="hidden bg-slate-900 text-white md:block">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <a href="" class="hover:text-blue-700 text-sm transition-colors">
+        Staff
+      </a>
+      <a href="" class="hover:text-blue-700 text-sm transition-colors">
+        Alumni
+      </a>
+      <a href="" class="hover:text-blue-700 text-sm transition-colors">
+        Faculty
+      </a>
+      <a href="" class="hover:text-blue-700 text-sm transition-colors">
+        Community
+      </a>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <i data-lucide="user-round" class="size-5" stroke-width="1.5"></i>
+        @if (Auth::check())
+          <a href="{{ route('dashboard') }}" class="hover:text-blue-700 text-sm transition-colors">
+            {{ Auth::user()->name }}
+          </a>
+        @else
+          <a href="{{ route('login') }}" class="hover:text-blue-700 text-sm transition-colors">
+            Login
+          </a>
+        @endif
+      </div>
+      <div class="h-4 border-r-[1.5px] border-gray-300"></div>
+      <div class="flex items-center gap-2">
+        <i data-lucide="message-circle-question-mark" class="size-5" stroke-width="1.5"></i>
+        <a href="" class="hover:text-blue-700 text-sm transition-colors">
+          FAQ
+        </a>
+      </div>
+      <div class="h-4 border-r-[1.5px] border-gray-300"></div>
+      <img src="{{ asset('images/flag.png') }}" alt="philippine-flag" class="h-6 object-contain">
+    </div>
+  </div>
+</div>
 <nav x-data="{ mobileMenuIsOpen: false }" x-on:click.away="mobileMenuIsOpen = false"
-  class="bg-white fixed w-full shadow-2xl z-50" aria-label="penguin ui menu">
-  <div class="h-20 max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
-    <a href={{ route('home') }}>
-      <img src={{ asset('images/logo.svg') }} alt="logo" class="h-10 sm:h-12">
-    </a>
-    <ul class="hidden items-center gap-6 md:flex">
-      @foreach ($items as $item)
-        @if (isset($item['subitems']))
-          <li class="relative mx-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-            <button class="flex items-center gap-3 font-bold" :aria-expanded="open">
-              {{ $item['name'] }}
-              <i data-lucide="chevron-down" class="size-5 shrink-0 transition" stroke-width="1.5"
-                x-bind:class="open  ?  'rotate-180'  :  ''"></i>
-            </button>
-            <ul
-              class="absolute min-w-[280px] left-1/2 top-full border border-gray-200 -translate-x-1/2 mt-2 bg-white rounded-2xl shadow-2xl p-6"
-              x-show="open" x-transition.origin.top.duration.200ms x-cloak>
-              @foreach ($item['subitems'] as $subitem)
-                <li x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
-                  class="relative font-semibold">
-                  <a href="{{ $subitem['route'] }}" target="_blank">
-                    {{ $subitem['name'] }}
-                    <span :class="hover ? 'w-full' : 'w-0'"
-                      class="absolute left-0 -bottom-2 h-[3px] transition-all duration-300 ease-in-out bg-linear-to-r from-cyan-300 via-sky-400 to-blue-500"></span>
-                  </a>
-                </li>
-              @endforeach
-            </ul>
-          </li>
-        @else
-          <a href={{ route($item['route']) }} class="mx-2">
-            <li x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false" class="relative font-bold">
-              {{ $item['name'] }}
-              <span :class="hover ? 'w-full' : 'w-0'"
-                class="absolute left-0 -bottom-2 h-[3px] transition-all duration-300 ease-in-out bg-linear-to-r from-cyan-300 via-sky-400 to-blue-500"></span>
-            </li>
-          </a>
-        @endif
-      @endforeach
-    </ul>
-    <button x-on:click="mobileMenuIsOpen = !mobileMenuIsOpen" x-bind:aria-expanded="mobileMenuIsOpen" type="button"
-      class="z-20 size-6 md:hidden" aria-label="mobile menu" aria-controls="mobileMenu">
-      <i data-lucide="menu" x-cloak x-show="!mobileMenuIsOpen" stroke-width="1.5" aria-hidden="true"></i>
-      <i data-lucide="x" x-cloak x-show="mobileMenuIsOpen" stroke-width="1.5" aria-hidden="true"></i>
-    </button>
-    <ul x-cloak x-show="mobileMenuIsOpen"
-      x-transition:enter="transition motion-reduce:transition-none ease-out duration-300"
-      x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0"
-      x-transition:leave="transition motion-reduce:transition-none ease-out duration-300"
-      x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="mobileMenu"
-      class="bg-white fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col gap-6 px-6 pb-6 pt-20 md:hidden">
-      @foreach ($items as $item)
-        @if (isset($item['subitems']))
-          <div x-data="{ isExpanded: false }" class="space-y-2">
-            <button type="button" class="font-bold flex w-full items-center justify-between gap-4 text-left"
-              x-on:click="isExpanded = ! isExpanded" x-bind:aria-expanded="isExpanded ? 'true' : 'false'">
-              {{ $item['name'] }}
-              <i data-lucide="chevron-down" class="size-5 shrink-0 transition" stroke-width="1.5"
-                x-bind:class="isExpanded  ?  'rotate-180'  :  ''"></i>
-            </button>
-            <ul x-cloak x-show="isExpanded" x-collapse class="space-y-2">
-              @foreach ($item['subitems'] as $subitem)
-                <a href="{{ $subitem['route'] }}" target="_blank">
-                  <li x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
-                    class="relative font-semibold">
-                    {{ $subitem['name'] }}
-                    <span :class="hover ? 'w-full' : 'w-0'"
-                      class="absolute left-0 -bottom-2 h-[3px] transition-all duration-300 ease-in-out bg-linear-to-r from-cyan-300 via-sky-400 to-blue-500"></span>
-                  </li>
-                </a>
-              @endforeach
-            </ul>
+  class="bg-white max-md:shadow max-md:sticky max-md:top-0 max-md:z-50">
+  <div class="relative max-w-7xl mx-auto md:px-6 md:pt-6 md:pb-12 max-md:p-4 max-md:pb-5">
+    <div class="flex items-center justify-between">
+      <a href="{{ route('home') }}" class="shrink-0">
+        <img src="{{ asset('images/logo.svg') }}" alt="occ-logo" class="h-12 object-contain">
+      </a>
+      <div class="hidden items-center gap-6 md:flex">
+        <div class="flex items-center gap-4">
+          <div class="border border-gray-300 p-2">
+            <i data-lucide="map-pin" class="size-5 text-blue-700" stroke-width="1.5"></i>
           </div>
-        @else
-          <a href={{ route($item['route']) }}>
-            <li x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false" class="relative font-bold">
-              {{ $item['name'] }}
-              <span :class="hover ? 'w-full' : 'w-0'"
-                class="absolute left-0 -bottom-2 h-[3px] transition-all duration-300 ease-in-out bg-linear-to-r from-cyan-300 via-sky-400 to-blue-500"></span>
-            </li>
+          <div class="flex flex-col">
+            <span class="text-gray-600 text-xs font-medium">Address</span>
+            <a href="https://maps.app.goo.gl/88x9eRcWgGJrrc4i6" target="_blank"
+              class="font-semibold text-sm hover:underline">C. Salva
+              St, Opol, 9016 Misamis Oriental</a>
+          </div>
+        </div>
+        <div class="h-8 border-r-[1.5px] border-gray-300"></div>
+        <div class="flex items-center gap-4">
+          <div class="border border-gray-300 p-2">
+            <i data-lucide="Mail" class="size-5 text-blue-700" stroke-width="1.5"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-gray-600 text-xs font-medium">Email</span>
+            <a href="mailto:opolcommunitycollege@yahoo.com" target="_blank"
+              class="font-semibold text-sm hover:underline">opolcommunitycollege@yahoo.com</a>
+          </div>
+        </div>
+        <div class="h-8 border-r-[1.5px] border-gray-300"></div>
+        <div class="flex items-center gap-4">
+          <div class="border border-gray-300 p-2">
+            <i data-lucide="phone" class="size-5 text-blue-700" stroke-width="1.5"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-gray-600 text-xs font-medium">Phone Number</span>
+            <a href="tel:09532609906" target="_blank" class="font-semibold text-sm hover:underline">+63 953 260 9906</a>
+          </div>
+        </div>
+      </div>
+      <button x-on:click="mobileMenuIsOpen = !mobileMenuIsOpen" x-bind:aria-expanded="mobileMenuIsOpen" type="button"
+        class="flex z-20 md:hidden" aria-label="mobile menu" aria-controls="mobileMenu">
+        <i data-lucide="menu" x-cloak x-show="!mobileMenuIsOpen" stroke-width="1.5" aria-hidden="true"></i>
+        <i data-lucide="x" x-cloak x-show="mobileMenuIsOpen" stroke-width="1.5" aria-hidden="true"></i>
+      </button>
+      <ul x-cloak x-show="mobileMenuIsOpen"
+        x-transition:enter="transition motion-reduce:transition-none ease-out duration-300"
+        x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0"
+        x-transition:leave="transition motion-reduce:transition-none ease-out duration-300"
+        x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="mobileMenu"
+        class="fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-gray-300 border-b border-gray-300 bg-white px-4 pb-4 pt-20 md:hidden">
+        <li class="py-4"><a href="#" class="w-full font-medium focus:underline">Pricing</a>
+        </li>
+        <li class="py-4"><a href="#" class="w-full font-medium focus:underline">Blog</a></li>
+        <li class="py-4"><a href="#" class="w-full font-medium focus:underline">Login</a></li>
+      </ul>
+    </div>
+    <div class="hidden absolute z-50 inset-x-0 -bottom-6.5 justify-center md:flex">
+      <div class="bg-gray-100 flex-1 flex items-center gap-6 mx-6">
+        <a href="">
+          <button type="button"
+            class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap bg-slate-900 px-5.5 py-3.5 tracking-wide transition-colors text-center text-white cursor-pointer">
+            <span class="relative z-10">
+              Get More Info
+            </span>
+            <i data-lucide="move-right" stroke-width="1.5" class="relative z-10"></i>
+            <span
+              class="absolute left-0 top-0 h-full w-0 bg-blue-700 transition-all duration-600 ease-out group-hover:w-full"></span>
+          </button>
+        </a>
+        <div class="flex items-center gap-6 whitespace-nowrap">
+          <a href="" class="hover:text-blue-700 font-medium transition-colors">
+            Home
           </a>
-        @endif
-      @endforeach
-    </ul>
+          <a href="" class="hover:text-blue-700 font-medium transition-colors">
+            About Us
+          </a>
+          <a href="" class="hover:text-blue-700 font-medium transition-colors">
+            Programs
+          </a>
+          <a href="" class="hover:text-blue-700 font-medium transition-colors">
+            Events
+          </a>
+          <a href="" class="hover:text-blue-700 font-medium transition-colors">
+            News
+          </a>
+          <a href="" class="hover:text-blue-700 font-medium transition-colors">
+            Contact Us
+          </a>
+          <a href="" class="hover:text-blue-700 font-medium transition-colors">
+            Sevices
+          </a>
+        </div>
+        @include('components.web.search')
+      </div>
+    </div>
   </div>
 </nav>

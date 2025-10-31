@@ -1,115 +1,71 @@
-<section class="relative bg-cover" style="background-image: url('{{ asset('images/backgrounds/1.jpg') }}');">
-  <div class="absolute inset-0 bg-white/30"></div>
-  <div class="relative bg-linear-to-b from-blue-500/70 via-sky-400/60 to-cyan-300/1 py-20">
-    <h1 class="text-3xl font-extrabold uppercase text-center text-white">Upcoming Events</h1>
-  </div>
-  <div class="relative max-w-6xl mx-auto p-6 space-y-20">
-    <div class="bg-black/20 rounded-2xl p-6 grid grid-cols-2 gap-6 shadow-lg backdrop-blur">
-      <div class="flex-1 h-96 rounded-2xl">
-        <div x-data="{            
-    // Sets the time between each slides in milliseconds
-    autoplayIntervalTime: 3000,
-    slides: [                
-        {
-            imgSrc: '{{ asset('images/slides/1.jpg') }}',        
-        },                
-        {                    
-           imgSrc: '{{ asset('images/slides/2.jpg') }}',   
-        },                
-        {                    
-            imgSrc: '{{ asset('images/slides/3.jpg') }}',       
-        }, 
-        {                    
-            imgSrc: '{{ asset('images/slides/4.jpg') }}',       
-        },            
-        {                    
-            imgSrc: '{{ asset('images/slides/5.jpg') }}',       
-        }, 
-        {                    
-            imgSrc: '{{ asset('images/slides/6.jpg') }}',       
-        }, 
-        {                    
-            imgSrc: '{{ asset('images/slides/7.jpg') }}',       
-        }, 
-    ],            
-    currentSlideIndex: 1,
-    isPaused: false,
-    autoplayInterval: null,
-    previous() {                
-        if (this.currentSlideIndex > 1) {                    
-            this.currentSlideIndex = this.currentSlideIndex - 1                
-        } else {   
-            // If it's the first slide, go to the last slide           
-            this.currentSlideIndex = this.slides.length                
-        }            
-    },            
-    next() {                
-        if (this.currentSlideIndex < this.slides.length) {                    
-            this.currentSlideIndex = this.currentSlideIndex + 1                
-        } else {                 
-            // If it's the last slide, go to the first slide    
-            this.currentSlideIndex = 1                
-        }            
-    },    
-    autoplay() {
-        this.autoplayInterval = setInterval(() => {
-            if (! this.isPaused) {
-                this.next()
-            }
-        }, this.autoplayIntervalTime)
-    },
-    // Updates interval time   
-    setAutoplayInterval(newIntervalTime) {
-        clearInterval(this.autoplayInterval)
-        this.autoplayIntervalTime = newIntervalTime
-        this.autoplay()
-    },    
-}" x-init="autoplay" class="relative size-full overflow-hidden">
-          <div class="relative size-full">
-            <template x-for="(slide, index) in slides">
-              <div x-cloak x-show="currentSlideIndex == index + 1" class="absolute inset-0"
-                x-transition.opacity.duration.1000ms>
-                <img class="object-cover rounded-2xl size-full" x-bind:src="slide.imgSrc" />
+<section class="max-w-7xl mx-auto">
+  <div class="mx-6 space-y-8">
+    <div class="flex items-center justify-between">
+      <div class="space-y-2">
+        <div class="flex items-center gap-4">
+          <div class="h-0.5 w-10 bg-blue-600"></div>
+          <h1 class="font-semibold text-xl text-blue-600">Events</h1>
+        </div>
+        <h1 class="text-3xl font-semibold">We have the best programs for you</h1>
+      </div>
+      <button type="button"
+        class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap border border-slate-900 px-5.5 py-3.5 tracking-wide transition-colors text-center cursor-pointer">
+        <span class="relative z-10 transition-colors duration-300 group-hover:text-white">
+          Explore All
+        </span>
+        <i data-lucide="move-right" stroke-width="1.5"
+          class="relative z-10 transition-colors duration-300 group-hover:text-white"></i>
+        <span
+          class="absolute left-0 top-0 h-full w-0 bg-slate-900 transition-all duration-600 ease-out group-hover:w-full"></span>
+      </button>
+    </div>
+    <div class="space-y-10">
+      <div class="space-y-6">
+        <div class="flex gap-8 md:items-center max-md:flex-col md:flex-row">
+          <div class="flex-1">
+            <div class="relative h-72 w-full">
+              <img src="{{ asset('images/collage/1.jpg') }}" alt="" class="size-full object-cover">
+              <div class="absolute top-4 right-4 bg-blue-600 py-2 px-4 text-white flex flex-col items-center">
+                <h1 class="font-semibold text-xl">12</h1>
+                <p class="font-medium text-lg">JAN</p>
               </div>
-            </template>
+            </div>
+          </div>
+          <div class="flex-1">
+            <div class="space-y-6">
+              <div class="space-y-4">
+                <h1 class="text-2xl font-semibold">Programming languages for a better world</h1>
+                <p class="text-gray-600">Come for a quick session on how this question has crucially helped humanity
+                  with
+                  achieving one of its most
+                  impressive feats yet: orchestrating electric currents.</p>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="map-pin" class="size-5 text-blue-600" stroke-width="1.5"></i>
+                  <p class="text-sm font-medium">25 Circular Road, New York City</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="calendar" class="size-5 text-blue-600" stroke-width="1.5"></i>
+                  <p class="text-sm font-medium">January 1, 2025</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="clock" class="size-5 text-blue-600" stroke-width="1.5"></i>
+                  <p class="text-sm font-medium">09:00am - 12:00pm</p>
+                </div>
+              </div>
+              <button type="button"
+                class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap border border-slate-900 px-5.5 py-3.5 tracking-wide transition-colors text-center cursor-pointer">
+                <span class="relative z-10 transition-colors duration-300 group-hover:text-white">
+                  Details
+                </span>
+                <i data-lucide="move-right" stroke-width="1.5"
+                  class="relative z-10 transition-colors duration-300 group-hover:text-white"></i>
+                <span
+                  class="absolute left-0 top-0 h-full w-0 bg-slate-900 transition-all duration-600 ease-out group-hover:w-full"></span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="flex-1 flex flex-col gap-3 h-96">
-        @php
-          $events = [
-            ['month' => 'August', 'date' => '7–8', 'title' => 'DO DAY', 'description' => 'Join us in fostering a cleaner and greener campus! During DO Day, students, faculty, and staff come together to clean classrooms, organize facilities, and beautify the surroundings. It’s a great way to show pride in our school community while building teamwork and environmental awareness.'],
-            ['month' => 'August', 'date' => '6', 'title' => 'Himamat', 'description' => 'Kickstart your exciting journey at OCC with ‘Himamat,’ our official student orientation! Meet your fellow freshmen, get to know your instructors, and learn everything you need to thrive at college. Expect fun activities, campus tours, and inspiring messages that will help you feel right at home.'],
-            ['month' => 'August', 'date' => '5', 'title' => 'Org. Festival', 'description' => 'Discover your passion and find your second family at the Organization Festival! Explore a wide variety of student clubs and organizations—academic, cultural, artistic, and service-oriented. This is your chance to meet leaders, make new friends, and get involved in meaningful campus activities.']
-          ]
-        @endphp
-        @foreach ($events as $event)
-          <a href=""
-            class="flex-1 flex items-center text-white bg-gray-800/80 rounded-2xl hover:bg-gray-700/60 transition duration-300 shadow-lg">
-            <div class="w-32 flex flex-col gap-1 items-center justify-center">
-              <h1 class="font-bold text-lg">
-                {{ $event['month'] }}
-              </h1>
-              <p class="font-extrabold text-4xl">
-                {{ $event['date'] }}
-              </p>
-            </div>
-            <div class="flex-1 pr-4">
-              <h1 class="font-semibold text-xl mb-1">
-                {{ $event['title'] }}
-              </h1>
-              <p class="text-sm line-clamp-3">
-                {{ $event['description'] }}
-              </p>
-            </div>
-          </a>
-        @endforeach
-      </div>
-    </div>
-    <div class="flex justify-center">
-      <button type="button"
-        class="whitespace-nowrap bg-linear-to-r from-cyan-300 via-sky-400 to-blue-500 rounded-full px-6 py-4 font-semibold tracking-wide text-white transition hover:opacity-75 text-center active:opacity-100 disabled:opacity-75 disabled:cursor-not-allowed uppercase shadow-2xl duration-300 hover:scale-105 cursor-pointer">See
-        More Events</button>
     </div>
   </div>
 </section>

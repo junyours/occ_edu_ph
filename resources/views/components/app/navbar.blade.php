@@ -1,10 +1,9 @@
-<nav class="h-16 sticky top-0 z-10 flex items-center justify-between border-b border-neutral-300 bg-neutral-50 px-4"
+<nav class="sticky top-0 z-10 flex items-center justify-between border-b border-neutral-300 bg-neutral-50 px-4 py-2"
   aria-label="top navibation bar">
   <button type="button" class="md:hidden inline-block text-neutral-600" x-on:click="sidebarIsOpen = true">
     <i data-lucide="panel-left" class="size-5" stroke-width="1.5"></i>
   </button>
-  <nav class="hidden md:inline-block" aria-label="breadcrumb">
-  </nav>
+  <nav class="hidden md:inline-block"></nav>
   <div x-data="{ userDropdownIsOpen: false }" class="relative" x-on:keydown.esc.window="userDropdownIsOpen = false">
     <button type="button"
       class="flex w-full items-center rounded-sm gap-2 p-2 text-left text-neutral-600 hover:bg-black/5 hover:text-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
@@ -14,7 +13,9 @@
         aria-hidden="true" />
       <div class="hidden md:flex flex-col">
         <span class="text-sm font-bold text-neutral-900">{{ Auth::user()->name }}</span>
-        <span class="text-xs" aria-hidden="true">{{ Auth::user()->email }}</span>
+        <span class="text-xs" aria-hidden="true">
+          {{ Auth::user()->email }}
+        </span>
       </div>
     </button>
     <div x-cloak x-show="userDropdownIsOpen"
@@ -30,13 +31,13 @@
         </a>
       </div>
       <div class="flex flex-col py-1.5">
-        <form x-data="{ processing: false }" @submit="processing = true" method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}" x-data="{ processing: false }" @submit="processing = true">
           @csrf
-          <button type="submit" :disabled="processing"
+          <button type="submit"
             class="w-full flex items-center gap-2 px-2 py-1.5 text-sm font-medium text-neutral-600 underline-offset-2 hover:bg-black/5 hover:text-neutral-900 focus-visible:underline focus:outline-hidden disabled:opacity-75 disabled:cursor-not-allowed"
-            role="menuitem">
+            :disabled="processing">
             <i data-lucide="log-out" class="size-5" stroke-width="1.5"></i>
-            <span>Logout</span>
+            <span>Sign Out</span>
           </button>
         </form>
       </div>

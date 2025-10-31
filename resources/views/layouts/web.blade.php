@@ -12,12 +12,14 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-100 text-slate-800 antialiased">
+<body class="text-slate-800 antialiased">
   @include('components.web.navbar')
   <main>
     @yield('content')
   </main>
-  @include('components.web.footer')
+  <div class="mt-20">
+    @include('components.web.footer')
+  </div>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
     lucide.createIcons();
