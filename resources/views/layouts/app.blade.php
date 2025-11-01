@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+  <link rel="icon" type="image/x-icon" href="{{ asset('images/icon.png') }}">
 
   <title>{{ config('app.name') }}</title>
 
@@ -28,10 +28,8 @@
       <!-- top navbar  -->
       @include('components.app.navbar')
       <!-- main content  -->
-      <div id="main-content" class="max-w-7xl mx-auto p-4">
-        <div class="overflow-y-auto">
-          @yield('content')
-        </div>
+      <div class="max-w-7xl mx-auto overflow-y-auto">
+        @yield('content')
       </div>
     </div>
   </div>

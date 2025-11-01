@@ -1,6 +1,8 @@
 @php
   $items = [
     ['name' => 'Dashboard', 'icon' => 'layout-grid', 'route' => 'dashboard'],
+    ['name' => 'SDG', 'icon' => 'shapes', 'route' => 'admin.sdg'],
+    ['name' => 'News', 'icon' => 'newspaper', 'route' => 'admin.news'],
   ]
 @endphp
 
