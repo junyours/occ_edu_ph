@@ -5,9 +5,14 @@
     ['name' => 'Programs', 'route' => 'home'],
     ['name' => 'Events', 'route' => 'home'],
     ['name' => 'News', 'route' => 'news'],
-    ['name' => 'Contact Us', 'route' => 'home'],
-    ['name' => 'Services', 'route' => 'home'],
     ['name' => 'SDG', 'route' => 'sdg'],
+    ['name' => 'Contact Us', 'route' => 'home'],
+    [
+      'name' => 'Services',
+      'subitems' => [
+        ['name' => 'Enrollment System', 'link' => 'https://occph.com/login'],
+      ]
+    ],
   ]
 @endphp
 
@@ -105,11 +110,29 @@
         x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="mobileMenu"
         class="fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-gray-300 border-b border-gray-300 bg-white px-4 pb-4 pt-20 md:hidden">
         @foreach ($items as $item)
-          <li class="py-4">
-            <a href="{{ route($item['route']) }}" class="w-full font-medium focus:underline">
-              {{ $item['name'] }}
-            </a>
-          </li>
+          @if (isset($item['subitems']))
+            <div x-data="{ isExpanded: false }" class="py-4">
+              <button type="button" class="font-medium flex w-full items-center justify-between gap-4 text-left"
+                x-on:click="isExpanded = ! isExpanded" x-bind:aria-expanded="isExpanded ? 'true' : 'false'">
+                {{ $item['name'] }}
+                <i data-lucide="chevron-down" class="size-5 shrink-0 transition" stroke-width="1.5"
+                  x-bind:class="isExpanded  ?  'rotate-180'  :  ''"></i>
+              </button>
+              <li x-cloak x-show="isExpanded" x-collapse class="flex flex-col gap-2 mt-2">
+                @foreach ($item['subitems'] as $subitem)
+                  <a href="{{ $subitem['link'] }}" target="_blank" class="w-full font-medium focus:underline">
+                    {{ $subitem['name'] }}
+                  </a>
+                @endforeach
+              </li>
+            </div>
+          @else
+            <li class="py-4">
+              <a href="{{ route($item['route']) }}" class="w-full font-medium focus:underline">
+                {{ $item['name'] }}
+              </a>
+            </li>
+          @endif
         @endforeach
       </ul>
     </div>
@@ -128,9 +151,31 @@
         </a>
         <div class="flex items-center gap-6 whitespace-nowrap">
           @foreach ($items as $item)
-            <a href="{{ route($item['route']) }}" class="hover:text-blue-700 font-medium transition-colors">
-              {{ $item['name'] }}
-            </a>
+            @if (isset($item['subitems']))
+              <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                <button class="flex items-center gap-3 hover:text-blue-700 font-medium transition-colors cursor-pointer"
+                  @click="open = !open" :aria-expanded="open">
+                  {{ $item['name'] }}
+                  <i data-lucide="chevron-down" class="size-5 shrink-0 transition" stroke-width="1.5"
+                    x-bind:class="open  ?  'rotate-180'  :  ''"></i>
+                </button>
+                <div
+                  class="absolute min-w-[280px] left-1/2 top-full border border-gray-300 -translate-x-1/2 mt-2 bg-white shadow p-6 z-50 space-y-4"
+                  x-show="open" x-transition.origin.top.duration.200ms x-cloak>
+                  @foreach ($item['subitems'] as $subitem)
+                    <a href="{{ $subitem['link'] }}" target="_blank"
+                      class="hover:text-blue-700 font-medium transition-colors flex items-center gap-2">
+                      <i data-lucide="arrow-right" class="size-5" stroke-width="1.5"></i>
+                      {{ $subitem['name'] }}
+                    </a>
+                  @endforeach
+                </div>
+              </div>
+            @else
+              <a href="{{ route($item['route']) }}" class="hover:text-blue-700 font-medium transition-colors">
+                {{ $item['name'] }}
+              </a>
+            @endif
           @endforeach
         </div>
         @include('components.web.search')

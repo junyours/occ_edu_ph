@@ -5,9 +5,8 @@
     ['id' => 3, 'name' => 'Programs', 'route' => route('home')],
     ['id' => 4, 'name' => 'Events', 'route' => route('home')],
     ['id' => 5, 'name' => 'News', 'route' => route('news')],
+    ['id' => 7, 'name' => 'SDG', 'route' => route('sdg')],
     ['id' => 6, 'name' => 'Contact Us', 'route' => route('home')],
-    ['id' => 7, 'name' => 'Services', 'route' => route('home')],
-    ['id' => 8, 'name' => 'SDG', 'route' => route('sdg')],
   ];
 @endphp
 

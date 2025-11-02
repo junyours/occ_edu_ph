@@ -11,7 +11,7 @@
           <h2 class="mb-6 text-sm font-semibold uppercase">Follow us</h2>
           <ul class="text-gray-500 font-medium">
             <li class="mb-4">
-              <a href="#" class="hover:underline">Facebook</a>
+              <a href="https://www.facebook.com/OCCofficialPage" target="_blank" class="hover:underline">Facebook</a>
             </li>
           </ul>
         </div>
@@ -46,7 +46,7 @@
           class="hover:underline">{{ config('app.name') }}</a>. All Rights Reserved.
       </span>
       <div class="flex mt-4 sm:justify-center sm:mt-0">
-        <a href="#" class="text-gray-500 hover:text-gray-800">
+        <a href="https://www.facebook.com/OCCofficialPage" target="_blank" class="text-gray-500 hover:text-gray-800">
           <i data-lucide="facebook" class="size-5" stroke-width="1.5"></i>
         </a>
       </div>
