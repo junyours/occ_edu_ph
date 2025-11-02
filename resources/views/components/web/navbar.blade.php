@@ -6,7 +6,7 @@
     ['name' => 'Events', 'route' => 'home'],
     ['name' => 'News', 'route' => 'news'],
     ['name' => 'Contact Us', 'route' => 'home'],
-    ['name' => 'Sevices', 'route' => 'home'],
+    ['name' => 'Services', 'route' => 'home'],
     ['name' => 'SDG', 'route' => 'sdg'],
   ]
 @endphp
@@ -89,7 +89,7 @@
           </div>
           <div class="flex flex-col">
             <span class="text-gray-600 text-xs font-medium">Phone Number</span>
-            <a href="tel:09532609906" target="_blank" class="font-semibold text-sm hover:underline">+63 953 260 9906</a>
+            <a href="tel:09524784815" target="_blank" class="font-semibold text-sm hover:underline">09524784815</a>
           </div>
         </div>
       </div>

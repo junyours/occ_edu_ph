@@ -1,291 +1,106 @@
-<!-- Command Palette -->
-<!-- An Alpine.js and Tailwind CSS component by https://pinemix.com -->
-<!-- Alpine.js focus plugin is required, for more info http://pinemix.com/docs/getting-started -->
+@php
+  $items = [
+    ['id' => 1, 'name' => 'Home', 'route' => route('home')],
+    ['id' => 2, 'name' => 'About Us', 'route' => route('home')],
+    ['id' => 3, 'name' => 'Programs', 'route' => route('home')],
+    ['id' => 4, 'name' => 'Events', 'route' => route('home')],
+    ['id' => 5, 'name' => 'News', 'route' => route('news')],
+    ['id' => 6, 'name' => 'Contact Us', 'route' => route('home')],
+    ['id' => 7, 'name' => 'Services', 'route' => route('home')],
+    ['id' => 8, 'name' => 'SDG', 'route' => route('sdg')],
+  ];
+@endphp
 
 <div x-data="{
-      // Customize Command Palette
-      open: false,
-      resetOnOpen: true,
-      closeOnSelection: true,
+    open: false,
+    filterTerm: '',
+    filterResults: @js($items),
+    highlightedIndex: -1,
+    modifierKey: '',
 
-      // Add your custom functionality or navigation when an option is selected 
-      optionSelected() {
-        // console.log(this.highlightedOption);
-      },
+    init() {
+      this.modifierKey = /mac/i.test(navigator.userAgentData ? navigator.userAgentData.platform : navigator.platform)
+        ? '⌘' : 'Ctrl';
+    },
 
-      // Available options (id and label are required)
-      options: [
-        {
-          id: 1,
-          label: 'New file',
-          command: 'new-file',
-          icon: '<svg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke-width=\'1.5\' stroke=\'currentColor\' data-slot=\'icon\' class=\'hi-outline hi-document-plus inline-block size-6\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z\'/></svg>',
-          shortcut: 'N',
-        },
-        {
-          id: 2,
-          label: 'New folder',
-          command: 'new-folder',
-          icon: '<svg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke-width=\'1.5\' stroke=\'currentColor\' data-slot=\'icon\' class=\'hi-outline hi-folder-plus inline-block size-6\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M12 10.5v6m3-3H9m4.06-7.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z\'/></svg>',
-          shortcut: 'F',
-        },
-        {
-          id: 3,
-          label: 'New project',
-          command: 'new-project',
-          icon: '<svg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke-width=\'1.5\' stroke=\'currentColor\' data-slot=\'icon\' class=\'hi-outline hi-squares-plus inline-block size-6\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z\'/></svg>',
-          shortcut: 'P',
-        },
-        {
-          id: 4,
-          label: 'Archive project',
-          command: 'archive-project',
-          icon: '<svg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke-width=\'1.5\' stroke=\'currentColor\' data-slot=\'icon\' class=\'hi-outline hi-archive-box inline-block size-6\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z\'/></svg>',
-          shortcut: 'A',
-        },
-        {
-          id: 5,
-          label: 'Format code',
-          command: 'format-code',
-          icon: '<svg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke-width=\'1.5\' stroke=\'currentColor\' data-slot=\'icon\' class=\'hi-outline hi-code-bracket-square inline-block size-6\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z\'/></svg>',
-          shortcut: 'Y',
-        },
-      ],
-      
-      // Helper variables
-      modifierKey: '',
-      filterTerm: '',
-      filterResults: [],
-      highlightedOption: null,
-      highlightedIndex: -1,
-      enableMouseHighlighting: true,
+    openCommandPalette() {
+      this.filterTerm = '';
+      this.filterResults = @js($items);
+      this.highlightedIndex = -1;
+      this.open = true;
+      $nextTick(() => $refs.searchInput.focus());
+    },
 
-      // Initialization
-      init() {            
-        if (this.open) {
-          this.openCommandPalette();
-        }
+    closeCommandPalette() {
+      this.open = false;
+    },
 
-        // Initialize filter results array
-        this.filterResults = this.options;
+    filter() {
+      const term = this.filterTerm.toLowerCase();
+      this.filterResults = @js($items).filter(i => i.name.toLowerCase().includes(term));
+    },
 
-        // Set the modifier key based on platform
-        this.modifierKey = /mac/i.test(navigator.userAgentData ? navigator.userAgentData.platform : navigator.platform) ? '⌘' : 'Ctrl';
-      },
+    navigateResults(direction) {
+      if (direction === 'next' && this.highlightedIndex < this.filterResults.length - 1) this.highlightedIndex++;
+      if (direction === 'previous' && this.highlightedIndex > 0) this.highlightedIndex--;
+    },
 
-      // Open Command Palette
-      openCommandPalette() {
-        if (this.resetOnOpen) {
-          this.filterTerm = '';
-          this.highlightedOption = null;
-          this.highlightedIndex = -1;
-          this.filterResults = this.options;
-        }
+    selectOption(item) {
+      window.location.href = item.route;
+      this.closeCommandPalette();
+    },
 
-        this.open = true;
-
-        $nextTick(() => {
-          // Focus filter input
-          $focus.focus($refs.elFilter);
-        });
-      },
-
-      // Close Command Palette
-      closeCommandPalette() {
-        this.open = false;
-
-        $nextTick(() => {
-          // Focus toggle button
-          $focus.focus($refs.elToggleButton);
-        });
-      },
-
-      // Enable mouse interaction
-      enableMouseInteraction() {
-        this.enableMouseHighlighting = true;
-      },
-
-      // Filter functionality
-      filter() {
-        if (this.filterTerm === '') {
-          this.filterResults = this.options;
-        } else {
-          this.filterResults = this.options.filter((option) => {
-            return option.label.toLowerCase().includes(this.filterTerm.toLowerCase());
-          });
-        }
-
-        // Refresh highlighted array index (the results have been updated)
-        if (this.filterResults.length > 0 && this.highlightedOption) {
-            this.highlightedIndex = this.filterResults.findIndex((option) => {
-              return option.id === this.highlightedOption.id;
-            });
-          }
-      },
-
-      // Set an option as highlighted
-      setHighlighted(id, mode) {
-        if (id === null) {
-          this.highlightedOption = null;
-          this.highlightedIndex = -1;
-        } else if (this.highlightedOption?.id != id && (mode === 'keyboard' || (mode === 'mouse' && this.enableMouseHighlighting))) {
-          this.highlightedOption = this.options.find(options => options.id === id) || null;
-
-          // Set highlighted index of filter results
-          if (mode === 'mouse' && this.enableMouseHighlighting) {
-              this.highlightedIndex = this.filterResults.findIndex((option) => {
-                return option.id === id;
-              });
-          } else {
-            // We are in keyboard mode, disable mouse navigation
-            this.enableMouseHighlighting = false;
-
-            // Scroll listbox to make the highlighted element visible
-            $refs.elListbox.querySelector('li[data-id=\'' + id + '\']').scrollIntoView({ block: 'nearest' });
-          }
-        }
-      },
-
-      // Check if the given id is the highlighted one
-      isHighlighted(id) {
-        return id === this.highlightedOption?.id || false;
-      },
-
-      // Navigate results functionality
-      navigateResults(mode) {
-        if (this.filterResults.length > 0) {
-          const maxIndex = this.filterResults.length - 1;
-
-          if (mode === 'first') {
-            this.highlightedIndex = 0;
-          } else if (mode === 'last') {
-            this.highlightedIndex = maxIndex;
-          } else if (mode === 'previous') {
-            if (this.highlightedIndex > 0 && this.highlightedIndex <= maxIndex) {
-              this.highlightedIndex--;
-            } else if (this.highlightedIndex === -1) {
-              this.highlightedIndex = 0;
-            }
-          } else if (mode === 'next') {
-            if (this.highlightedIndex >= 0 && this.highlightedIndex < maxIndex) {
-              this.highlightedIndex++;
-            } else if (this.highlightedIndex === -1) {
-              this.highlightedIndex = 0;
-            }
-          }
-
-          if (!this.filterResults[this.highlightedIndex]?.id) {
-            this.highlightedIndex = 0;                  
-          }
-
-          this.setHighlighted(this.filterResults[this.highlightedIndex].id, 'keyboard');
-        }
-      },
-
-      // On option selected
-      onOptionSelected() {
-        if (this.highlightedOption != null) {
-          this.optionSelected();
-
-          if (this.closeOnSelection) {
-            this.closeCommandPalette();
-          }
-        }
-      },
-    }" x-on:keydown.ctrl.k.prevent.document="openCommandPalette()"
+    isHighlighted(index) {
+      return index === this.highlightedIndex;
+    }
+  }" x-on:keydown.ctrl.k.prevent.document="openCommandPalette()"
   x-on:keydown.meta.k.prevent.document="openCommandPalette()" class="h-full w-full">
+
   <!-- Toggle Button -->
-  <button x-ref="elToggleButton" x-on:click="openCommandPalette()" type="button"
+  <button x-ref="toggleButton" x-on:click="openCommandPalette()" type="button"
     class="relative bg-gray-300 h-full w-full flex items-center justify-between cursor-pointer">
     <div class="flex items-center opacity-75 gap-1">
       <i data-lucide="search" class="absolute left-4 top-1/2 size-5 -translate-y-1/2"></i>
       <span class="py-2 pl-14 pr-4">Search</span>
     </div>
     <span class="flex-none text-xs font-semibold opacity-75 pr-4">
-      <span x-text="modifierKey" class="opacity-75"></span>
-      <span>K</span>
+      <span x-text="modifierKey"></span> + K
     </span>
   </button>
-  <!-- END Toggle Button -->
 
   <!-- Backdrop -->
-  <div x-cloak x-show="open" x-trap.inert.noscroll="open" x-transition:enter="transition ease-out duration-300"
-    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-    x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
-    x-transition:leave-end="opacity-0" x-bind:aria-hidden="!open" x-on:keydown.esc.prevent.stop="closeCommandPalette()"
-    class="z-90 fixed inset-0 overflow-y-auto overflow-x-hidden bg-zinc-900/75 p-4 backdrop-blur-xs will-change-auto md:py-8 lg:px-8 lg:py-16"
-    tabindex="-1" role="dialog" aria-modal="true">
-    <!-- Command Palette Container -->
-    <div x-cloak x-show="open" x-transition:enter="transition ease-out duration-300"
-      x-transition:enter-start="opacity-0 -translate-y-32" x-transition:enter-end="opacity-100 translate-y-0"
-      x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
-      x-transition:leave-end="opacity-0 translate-y-32" x-on:click.outside="closeCommandPalette()"
-      class="mx-auto flex w-full max-w-lg flex-col rounded-xl shadow-xl will-change-auto dark:text-zinc-100 dark:shadow-black/25"
-      role="document">
-      <!-- Search Input -->
-      <div class="relative rounded-t-lg bg-white px-2 pt-2 dark:bg-zinc-800">
-        <div class="flex w-full items-center rounded-lg bg-zinc-100 px-3 dark:bg-zinc-700/75">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" data-slot="icon" class="hi-outline hi-command-line inline-block size-6 opacity-50">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
-          </svg>
-          <input x-ref="elFilter" x-model="filterTerm" x-on:input.debounce.50ms="filter($event)"
-            x-on:keydown.enter.prevent.stop="onOptionSelected()"
-            x-on:keydown.up.prevent.stop="navigateResults('previous')"
-            x-on:keydown.down.prevent.stop="navigateResults('next')"
-            x-on:keydown.home.prevent.stop="navigateResults('first')"
-            x-on:keydown.end.prevent.stop="navigateResults('last')"
-            x-on:keydown.page-up.prevent.stop="navigateResults('first')"
-            x-on:keydown.page-down.prevent.stop="navigateResults('last')" type="text"
-            class="w-full border-none bg-transparent py-3 text-sm placeholder:text-zinc-500 focus:outline-hidden focus:ring-0 dark:placeholder:text-zinc-400"
-            placeholder="Search commands.." tabindex="0" role="combobox" aria-expanded="true"
-            aria-autocomplete="list" />
-        </div>
-      </div>
-      <!-- EMD Search Input -->
+  <div x-cloak x-show="open" x-transition.opacity
+    class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center"
+    x-on:click.self="closeCommandPalette()" x-on:keydown.escape.prevent.stop="closeCommandPalette()">
 
-      <!-- Listbox -->
-      <ul x-show="filterResults.length > 0" x-ref="elListbox" x-on:mousemove.throttle="enableMouseInteraction()"
-        x-on:mouseleave="setHighlighted(null)" class="max-h-72 overflow-auto rounded-b-xl bg-white p-2 dark:bg-zinc-800"
-        role="listbox">
-        <template x-for="option in filterResults" :key="option.id">
-          <li x-on:click="onOptionSelected()" x-on:mouseenter="setHighlighted(option.id, 'mouse')" x-bind:class="{
-              'text-white bg-zinc-600 dark:text-white dark:bg-zinc-600': isHighlighted(option.id),
-              'text-zinc-600 dark:text-zinc-300': ! isHighlighted(option.id),
-            }" x-bind:data-selected="isHighlighted(option.id)" x-bind:data-id="option.id"
-            x-bind:data-label="option.label" x-bind:aria-selected="isHighlighted(option.id)"
-            class="group flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 text-sm" role="option"
-            tabindex="-1">
-            <div class="flex grow items-center gap-3 py-2">
-              <div x-html="option.icon" class="size-6 opacity-60"></div>
-              <div x-text="option.label" class="font-medium"></div>
-            </div>
-            <div class="flex-none text-xs font-semibold opacity-75">
-              <span x-text="modifierKey" class="opacity-75"></span> +
-              <span x-text="option.shortcut"></span>
-            </div>
+    <!-- Palette Container -->
+    <div class="bg-white w-full max-w-lg overflow-hidden" x-on:click.stop>
+      <div class="flex items-center bg-gray-100 px-4 py-3 gap-4">
+        <i data-lucide="search" class="size-5 opacity-50" stroke-width="1.5"></i>
+        <input x-ref="searchInput" x-model="filterTerm" x-on:input.debounce.100ms="filter"
+          x-on:keydown.arrow-down.prevent="navigateResults('next')"
+          x-on:keydown.arrow-up.prevent="navigateResults('previous')"
+          x-on:keydown.enter.prevent="selectOption(filterResults[highlightedIndex])" type="text"
+          placeholder="Search pages..." class="w-full bg-transparent outline-none text-sm py-2" />
+      </div>
+
+      <ul class="max-h-64 overflow-y-auto divide-y divide-gray-100">
+        <template x-for="(item, index) in filterResults" :key="item.id">
+          <li x-on:click="selectOption(item)" x-on:mouseenter="highlightedIndex = index"
+            x-bind:class="isHighlighted(index) ? 'bg-gray-200 text-gray-900' : 'text-gray-700'"
+            class="cursor-pointer px-4 py-3 flex items-center gap-4 text-sm transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-5 opacity-60" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7" />
+            </svg>
+            <span x-text="item.name" class="font-medium"></span>
           </li>
         </template>
       </ul>
-      <!-- END Listbox -->
 
-      <!-- No Results Feedback -->
-      <div x-show="filterResults.length === 0" class="rounded-b-xl bg-white p-3 dark:bg-zinc-800">
-        <div class="space-y-3 py-1.5 text-center text-sm text-zinc-500 dark:text-zinc-400">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" data-slot="icon" class="hi-outline hi-x-circle inline-block size-8 opacity-50">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
-          <p>No commands found</p>
-        </div>
+      <div x-show="filterResults.length === 0" class="p-4 text-center text-sm text-gray-500">
+        No results found.
       </div>
-      <!-- END No Results Feedback -->
     </div>
-    <!-- END Command Palette Container -->
   </div>
-  <!-- END Backdrop -->
 </div>
-
-<!-- END Command Palette -->

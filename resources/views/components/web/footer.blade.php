@@ -23,7 +23,7 @@
                 class="wrap-break-word hover:underline">opolcommunitycollege@yahoo.com</a>
             </li>
             <li class="mb-4">
-              <a href="tel:09532609906" target="_blank" class="hover:underline">09532609906</a>
+              <a href="tel:09524784815" target="_blank" class="hover:underline">09524784815</a>
             </li>
           </ul>
         </div>
