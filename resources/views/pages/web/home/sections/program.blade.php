@@ -21,14 +21,22 @@
     </div>
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
       <div class="border border-gray-300 p-6 space-y-6">
-        <div class="group h-46 overflow-hidden">
-          <img src="{{ asset('images/collage/1.jpg') }}" alt=""
+        <div class="relative group h-46 overflow-hidden">
+          <img src="{{ asset('images/collage/2.jpg') }}" alt=""
             class="size-full object-cover transform transition duration-800 ease-in-out group-hover:scale-125 group-hover:-rotate-2">
+          <img src="{{ asset('images/departments/CIT.png') }}" alt="cit"
+            class="size-16 object-contain absolute top-4 right-4">
         </div>
         <div class="space-y-4">
-          <h1 class="text-2xl font-semibold">Bachelor of Science in Information Technology (BSIT)</h1>
-          <p class="text-gray-600">Develop skills in computing, programming, and innovation with real-world IT
-            applications.</p>
+          <div class="space-y-2">
+            <h1 class="text-2xl font-semibold">Bachelor of Science in Information Technology</h1>
+            <h2 class="font-medium">College of Information Technology</h2>
+          </div>
+          <p class="text-gray-600 line-clamp-4">A comprehensive program designed to equip students with advanced
+            technical skills in
+            software development, systems analysis, cybersecurity, and emerging technologies such as artificial
+            intelligence and cloud computing. This course prepares future IT professionals to become innovative
+            problem-solvers and leaders in the digital industry.</p>
         </div>
         <div class="border-b border-gray-300"></div>
         <div class="flex justify-end">
