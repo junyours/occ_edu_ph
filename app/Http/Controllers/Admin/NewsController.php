@@ -81,7 +81,7 @@ class NewsController extends Controller
                 ]);
             }
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'News added successfully!');
         }
     }
 
@@ -100,7 +100,7 @@ class NewsController extends Controller
         $news = News::findOrFail($id);
 
         $request->validate([
-            'sdg' => ['required', 'array', 'min:1'],
+            'sdg' => ['sometimes', 'array', 'min:1'],
             'image' => ['nullable', 'mimes:jpeg,jpg,png'],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required'],
@@ -152,15 +152,18 @@ class NewsController extends Controller
                 ->toDateString(),
         ]);
 
-        NewsSdg::where('news_id', $news->id)->delete();
-        foreach ($request->sdg as $sdgId) {
-            NewsSdg::create([
-                'news_id' => $news->id,
-                'sdg_id' => $sdgId,
-            ]);
+        if ($request->filled('sdg')) {
+            NewsSdg::where('news_id', $news->id)->delete();
+
+            foreach ($request->sdg as $sdgId) {
+                NewsSdg::create([
+                    'news_id' => $news->id,
+                    'sdg_id' => $sdgId,
+                ]);
+            }
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'News edited successfully!');
     }
 
     public function delete($id)

@@ -62,7 +62,7 @@
   <div class="relative max-w-7xl mx-auto md:px-6 md:pt-6 md:pb-12 max-md:p-4 max-md:pb-5">
     <div class="flex items-center justify-between">
       <a href="{{ route('home') }}" class="shrink-0">
-        <img src="{{ asset('images/logo.svg') }}" alt="occ-logo" class="h-12 object-contain">
+        <img src="{{ asset('images/logo.png') }}" alt="occ-logo" class="h-12 object-contain">
       </a>
       <div class="hidden items-center gap-6 md:flex">
         <div class="flex items-center gap-4">

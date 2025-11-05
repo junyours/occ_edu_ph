@@ -13,6 +13,7 @@
 </head>
 
 <body class="antialiased">
+  <x-ui.notification/>
   <div x-data="{ sidebarIsOpen: false }" class="relative flex w-full flex-col md:flex-row">
     <!-- This allows screen readers to skip the sidebar and go directly to the main content. -->
     <a class="sr-only" href="#main-content">skip to the main content</a>

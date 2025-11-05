@@ -10,7 +10,7 @@
   class="fixed left-0 z-30 flex gap-6 h-svh w-60 shrink-0 flex-col border-r border-neutral-300 bg-neutral-50 p-4 transition-transform duration-300 md:w-64 md:translate-x-0 md:relative"
   x-bind:class="sidebarIsOpen ? 'translate-x-0' : '-translate-x-60'" aria-label="sidebar navigation">
   <a href={{ route('home') }}>
-    <img src="{{ asset('images/logo.svg') }}" alt="occ-logo" class="object-contain">
+    <img src="{{ asset('images/logo.png') }}" alt="occ-logo" class="object-contain">
   </a>
   <div class="flex flex-col gap-2 overflow-y-auto pb-6">
     @foreach ($items as $item)

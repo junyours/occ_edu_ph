@@ -19,7 +19,7 @@
       <div class="space-y-8 p-6">
         <div class="flex justify-center">
           <a href={{ route('home') }}>
-            <img src="{{ asset('images/logo.svg') }}" alt="occ-logo" class="h-14 object-contain">
+            <img src="{{ asset('images/logo.png') }}" alt="occ-logo" class="h-14 object-contain">
           </a>
         </div>
         @yield('content')

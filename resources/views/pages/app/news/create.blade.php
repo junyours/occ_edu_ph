@@ -7,52 +7,52 @@
       enctype="multipart/form-data" class="space-y-4">
       @csrf
       <div x-data="{
-                                      options: {{ $options->toJson() }},
-                                      isOpen: false,
-                                      openedWithKeyboard: false,
-                                      selectedOptions: [],
-                                      selectedLabels: [],
+                                          options: {{ $options->toJson() }},
+                                          isOpen: false,
+                                          openedWithKeyboard: false,
+                                          selectedOptions: [],
+                                          selectedLabels: [],
 
-                                      setLabelText() {
-                                        const count = this.selectedLabels.length;
-                                        if (count === 0) return 'Please Select';
-                                        return this.selectedLabels.join(', ');
-                                      },
+                                          setLabelText() {
+                                            const count = this.selectedLabels.length;
+                                            if (count === 0) return 'Please Select';
+                                            return this.selectedLabels.join(', ');
+                                          },
 
-                                      highlightFirstMatchingOption(pressedKey) {
-                                        if (pressedKey === 'Enter') return;
-                                        const option = this.options.find((item) =>
-                                          item.label.toLowerCase().startsWith(pressedKey.toLowerCase())
-                                        );
-                                        if (option) {
-                                          const index = this.options.indexOf(option);
-                                          const allOptions = document.querySelectorAll('.combobox-option');
-                                          if (allOptions[index]) {
-                                            allOptions[index].focus();
-                                          }
-                                        }
-                                      },
+                                          highlightFirstMatchingOption(pressedKey) {
+                                            if (pressedKey === 'Enter') return;
+                                            const option = this.options.find((item) =>
+                                              item.label.toLowerCase().startsWith(pressedKey.toLowerCase())
+                                            );
+                                            if (option) {
+                                              const index = this.options.indexOf(option);
+                                              const allOptions = document.querySelectorAll('.combobox-option');
+                                              if (allOptions[index]) {
+                                                allOptions[index].focus();
+                                              }
+                                            }
+                                          },
 
-                                      handleOptionToggle(option, item) {
-                                        if (option.checked) {
-                                          this.selectedOptions.push(item.id);
-                                          this.selectedLabels.push(item.label);
-                                        } else {
-                                          this.selectedOptions = this.selectedOptions.filter((id) => id !== item.id);
-                                          this.selectedLabels = this.selectedLabels.filter((lbl) => lbl !== item.label);
-                                        }
+                                          handleOptionToggle(option, item) {
+                                            if (option.checked) {
+                                              this.selectedOptions.push(item.id);
+                                              this.selectedLabels.push(item.label);
+                                            } else {
+                                              this.selectedOptions = this.selectedOptions.filter((id) => id !== item.id);
+                                              this.selectedLabels = this.selectedLabels.filter((lbl) => lbl !== item.label);
+                                            }
 
-                                        const form = this.$root.closest('form');
-                                        form.querySelectorAll('input[name=\'sdg[]\']').forEach(el => el.remove());
-                                        this.selectedOptions.forEach((id) => {
-                                          const input = document.createElement('input');
-                                          input.type = 'hidden';
-                                          input.name = 'sdg[]';
-                                          input.value = id;
-                                          form.appendChild(input);
-                                        });
-                                      },
-                                    }" class="flex flex-col gap-1"
+                                            const form = this.$root.closest('form');
+                                            form.querySelectorAll('input[name=\'sdg[]\']').forEach(el => el.remove());
+                                            this.selectedOptions.forEach((id) => {
+                                              const input = document.createElement('input');
+                                              input.type = 'hidden';
+                                              input.name = 'sdg[]';
+                                              input.value = id;
+                                              form.appendChild(input);
+                                            });
+                                          },
+                                        }" class="flex flex-col gap-1"
         x-on:keydown="highlightFirstMatchingOption($event.key)"
         x-on:keydown.esc.window="isOpen = false, openedWithKeyboard = false">
         <label for="sdg" class="w-fit pl-0.5 text-sm text-neutral-600">SDG</label>
