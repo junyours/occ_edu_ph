@@ -55,7 +55,6 @@
   }" x-on:keydown.ctrl.k.prevent.document="openCommandPalette()"
   x-on:keydown.meta.k.prevent.document="openCommandPalette()" class="h-full w-full">
 
-  <!-- Toggle Button -->
   <button x-ref="toggleButton" x-on:click="openCommandPalette()" type="button"
     class="relative bg-gray-300 h-full w-full flex items-center justify-between cursor-pointer">
     <div class="flex items-center opacity-75 gap-1">
@@ -67,12 +66,10 @@
     </span>
   </button>
 
-  <!-- Backdrop -->
   <div x-cloak x-show="open" x-transition.opacity
     class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center"
     x-on:click.self="closeCommandPalette()" x-on:keydown.escape.prevent.stop="closeCommandPalette()">
 
-    <!-- Palette Container -->
     <div class="bg-white w-full max-w-lg overflow-hidden" x-on:click.stop>
       <div class="flex items-center bg-gray-100 px-4 py-3 gap-4">
         <i data-lucide="search" class="size-5 opacity-50" stroke-width="1.5"></i>

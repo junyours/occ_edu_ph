@@ -32,7 +32,7 @@ class NewsController extends Controller
 
         $request->validate([
             'sdg' => ['required', 'array', 'min:1'],
-            'image' => ['required', 'mimes:jpeg,jpg,png', 'max:2048'],
+            'image' => ['required', 'mimes:jpeg,jpg,png'],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required'],
             'date' => ['required', 'date'],
@@ -101,7 +101,7 @@ class NewsController extends Controller
 
         $request->validate([
             'sdg' => ['required', 'array', 'min:1'],
-            'image' => ['nullable', 'mimes:jpeg,jpg,png', 'max:2048'],
+            'image' => ['nullable', 'mimes:jpeg,jpg,png'],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required'],
             'date' => ['required', 'date'],
