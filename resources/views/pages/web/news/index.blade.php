@@ -32,7 +32,7 @@
               <h1 class="text-2xl font-semibold line-clamp-2">{{ $item->title }}</h1>
               <p class="text-gray-600 line-clamp-3">{{ $item->description }}</p>
             </div>
-            <a href="{{ route('news.article', $item->id) }}" class="w-fit">
+            <a href="{{ route('news.article', ['id' => $item->image]) }}" class="w-fit">
               <button type="button"
                 class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap border border-slate-900 px-5.5 py-3.5 tracking-wide transition-colors text-center cursor-pointer">
                 <span class="relative z-10 transition-colors duration-300 group-hover:text-white">

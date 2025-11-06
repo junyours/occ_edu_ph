@@ -18,31 +18,37 @@
         </button>
       </a>
     </div>
-    <div class="overflow-hidden w-full overflow-x-auto rounded-sm border border-neutral-300">
+    <div class="relative overflow-x-auto rounded-sm border border-neutral-300">
       <table class="w-full text-left text-sm text-neutral-600">
         <thead class="border-b border-neutral-300 bg-neutral-50 text-sm text-neutral-900">
           <tr>
-            <th scope="col" class="p-4"></th>
-            <th scope="col" class="p-4">Title</th>
-            <th scope="col" class="p-4">SDG</th>
-            <th scope="col" class="p-4">Action</th>
+            <th scope="col" class="px-16 py-3">
+              <span class="sr-only">Image</span>
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Title
+            </th>
+            <th scope="col" class="px-6 py-3">
+              SDG
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Action
+            </th>
           </tr>
         </thead>
         <tbody class="divide-y divide-neutral-300">
           @foreach ($news as $item)
             <tr>
               <td class="p-4">
-                <img src="https://lh3.googleusercontent.com/d/{{ $item->image }}" class="size-16 object-cover">
+                <img src="https://lh3.googleusercontent.com/d/{{ $item->image }}" class="w-32 object-contain">
               </td>
-              <td class="p-4">{{ $item->title }}</td>
-              <td class="p-4">
-                <div class="flex gap-1 flex-wrap">
-                  @foreach ($item->sdg as $sdg)
-                    <img src="https://lh3.googleusercontent.com/d/{{ $sdg->image }}" class="size-8 object-cover">
-                  @endforeach
-                </div>
+              <td class="px-6 py-4 min-w-sm">
+                {{ $item->title }}
               </td>
-              <td class="p-4">
+              <td class="px-6 py-4 uppercase min-w-xs">
+                {{ $item->sdg->pluck('name')->implode(', ') }}
+              </td>
+              <td class="px-6 py-4">
                 <a href="{{ route('admin.edit.news', $item->id) }}">
                   <button type="button"
                     class="whitespace-nowrap rounded-sm bg-transparent p-0.5 font-semibold text-blue-500 outline-blue-500 hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 active:opacity-100 active:outline-offset-0">

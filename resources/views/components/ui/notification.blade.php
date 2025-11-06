@@ -70,7 +70,7 @@
   ">
   <!-- Notifications Container -->
   <div x-cloak x-show="notifications.length > 0" role="region" aria-label="Notifications"
-    class="fixed z-50 flex w-72 gap-2" :class="{
+    class="fixed z-50 flex w-80 gap-2" :class="{
       'flex-col-reverse': position === 'top-start' || position === 'top-end',
       'flex-col': position === 'bottom-start' || position === 'bottom-end',
       'top-4': position === 'top-end' || position === 'top-start',

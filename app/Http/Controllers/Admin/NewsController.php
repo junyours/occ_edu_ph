@@ -163,7 +163,7 @@ class NewsController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'News edited successfully!');
+        return redirect()->back()->with('success', 'News updated successfully!');
     }
 
     public function delete($id)
@@ -177,7 +177,8 @@ class NewsController extends Controller
 
         $news->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'News deleted successfully!');
+        ;
     }
 
 }

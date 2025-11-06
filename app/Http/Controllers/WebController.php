@@ -29,9 +29,9 @@ class WebController extends Controller
 
     public function article($id)
     {
-        $article = News::whereHas('sdg', function ($query) use ($id) {
-            $query->where('news_id', $id);
-        })->with('sdg')->first();
+        $article = News::where('image', $id)
+            ->with('sdg')
+            ->firstOrFail();
 
         return view('pages.web.news.article', compact('article'));
     }

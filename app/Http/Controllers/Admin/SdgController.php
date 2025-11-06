@@ -62,7 +62,7 @@ class SdgController extends Controller
                 'name' => $request->name,
             ]);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'News added successfully!');
         }
     }
 
@@ -126,7 +126,7 @@ class SdgController extends Controller
             }
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'News updated successfully!');
     }
 
     public function delete($id)
@@ -138,6 +138,6 @@ class SdgController extends Controller
 
         $sdg->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'News deleted successfully!');
     }
 }
