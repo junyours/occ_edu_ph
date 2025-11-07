@@ -1,15 +1,15 @@
-<section class="max-w-7xl mx-auto">
+<section class="max-w-6xl mx-auto">
   <div class="mx-6 space-y-8">
     <div class="space-y-2">
       <div class="flex items-center gap-4">
-        <div class="h-0.5 w-10 bg-blue-600"></div>
-        <h1 class="font-semibold text-xl text-blue-600">VISIT US</h1>
+        <div class="h-0.5 w-10 bg-blue-700"></div>
+        <h1 class="font-semibold text-lg text-blue-700 uppercase">Visit Us</h1>
       </div>
-      <h1 class="text-3xl font-semibold">Discover our vibrant campus community.</h1>
+      <h1 class="text-2xl font-semibold">Discover our vibrant campus community</h1>
     </div>
     <div class="grid md:grid-cols-2 items-center gap-6">
       <div class="space-y-8">
-        <p class="text-gray-600 leading-relaxed">
+        <p class="text-gray-600 font-medium">
           We’d love to welcome you to Opol Community College!
           Our campus is open for visits, inquiries, and
           community engagement. Come and explore our vibrant
@@ -23,10 +23,9 @@
               <i data-lucide="map-pin" class="text-blue-700" stroke-width="1.5"></i>
             </div>
             <div class="flex flex-col">
-              <span class="text-gray-600 font-medium">Address</span>
+              <span class="text-gray-600 font-medium text-sm">Address</span>
               <a href="https://maps.app.goo.gl/88x9eRcWgGJrrc4i6" target="_blank"
-                class="font-semibold hover:underline">C. Salva
-                St, Opol, 9016 Misamis Oriental</a>
+                class="font-semibold hover:underline">Poblacion, Opol, Misamis Oriental</a>
             </div>
           </div>
           <div class="flex items-center gap-4">
@@ -34,9 +33,9 @@
               <i data-lucide="mail" class="text-blue-700" stroke-width="1.5"></i>
             </div>
             <div class="flex flex-col">
-              <span class="text-gray-600 font-medium">Email</span>
-              <a href="mailto:opolcommunitycollege@yahoo.com" target="_blank"
-                class="font-semibold hover:underline">opolcommunitycollege@yahoo.com</a>
+              <span class="text-gray-600 font-medium text-sm">Email</span>
+              <a href="mailto:opolcommunitycollege@occ.edu.ph" target="_blank"
+                class="font-semibold hover:underline">opolcommunitycollege@occ.edu.ph</a>
             </div>
           </div>
           <div class="flex items-center gap-4">
@@ -44,8 +43,8 @@
               <i data-lucide="phone" class="text-blue-700" stroke-width="1.5"></i>
             </div>
             <div class="flex flex-col">
-              <span class="text-gray-600 font-medium">Phone Number</span>
-              <a href="tel:09524784815" target="_blank" class="font-semibold hover:underline">09524784815</a>
+              <span class="text-gray-600 font-medium text-sm">Phone Number</span>
+              <a href="tel:0915 277 5842" target="_blank" class="font-semibold hover:underline">0915 277 5842</a>
             </div>
           </div>
           <div class="flex items-center gap-4">
@@ -53,7 +52,7 @@
               <i data-lucide="clock" class="text-blue-700" stroke-width="1.5"></i>
             </div>
             <div class="flex flex-col">
-              <span class="text-gray-600 font-medium">Office Hours</span>
+              <span class="text-gray-600 font-medium text-sm">Office Hours</span>
               <span class="font-semibold">Monday –
                 Friday, 8:00 AM – 5:00 PM</span>
             </div>

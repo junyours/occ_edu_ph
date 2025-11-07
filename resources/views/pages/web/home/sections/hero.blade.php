@@ -1,10 +1,10 @@
-<section class="relative h-screen w-full overflow-hidden">
-  <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+<section class="relative h-[600px] w-full overflow-hidden">
+  <video class="w-full h-[600px] object-cover" autoplay loop muted playsinline>
     <source src="{{ asset('videos/promotional.mp4') }}" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <div class="absolute inset-0 bg-black/50"></div>
-  <div class="max-w-7xl mx-auto">
+  <div class="max-w-6xl mx-auto">
     <div class="absolute bottom-30 mx-6 space-y-10 text-white">
       <div class="flex flex-col gap-4 max-md:items-center max-md:text-center">
         <h1 class="font-bold text-4xl">

@@ -1,19 +1,29 @@
 @php
   $items = [
-    ['id' => 1, 'name' => 'Home', 'route' => route('home')],
-    ['id' => 2, 'name' => 'About Us', 'route' => route('home')],
-    ['id' => 3, 'name' => 'Programs', 'route' => route('home')],
-    ['id' => 4, 'name' => 'Events', 'route' => route('home')],
-    ['id' => 5, 'name' => 'News', 'route' => route('news')],
-    ['id' => 7, 'name' => 'SDG', 'route' => route('sdg')],
-    ['id' => 6, 'name' => 'Contact Us', 'route' => route('home')],
+    ['name' => 'Home', 'route' => route('home')],
+    [
+      'name' => 'Academic Programs',
+      'subitems' => [
+        ['name' => 'Teacher Education Department', 'route' => '#'],
+        ['name' => 'College of Business Administration', 'route' => '#'],
+        ['name' => 'College of Information Technology', 'route' => '#'],
+      ]
+    ],
+    ['name' => 'News', 'route' => route('news')],
+    ['name' => 'SDG', 'route' => route('sdg')],
+    [
+      'name' => 'Services',
+      'subitems' => [
+        ['name' => 'Enrollment System', 'route' => 'https://occph.com/login'],
+      ]
+    ],
   ];
 @endphp
 
 <div x-data="{
     open: false,
     filterTerm: '',
-    filterResults: @js($items),
+    filterResults: [],
     highlightedIndex: -1,
     modifierKey: '',
 
@@ -24,7 +34,7 @@
 
     openCommandPalette() {
       this.filterTerm = '';
-      this.filterResults = @js($items);
+      this.filterResults = this.flattenItems();
       this.highlightedIndex = -1;
       this.open = true;
       $nextTick(() => $refs.searchInput.focus());
@@ -34,9 +44,34 @@
       this.open = false;
     },
 
+    flattenItems() {
+      const allItems = [];
+      @js($items).forEach(i => {
+        if (i.subitems) {
+          i.subitems.forEach(sub => {
+            allItems.push({
+              name: sub.name,
+              route: sub.route,
+              parent: i.name
+            });
+          });
+        } else {
+          allItems.push({
+            name: i.name,
+            route: i.route,
+            parent: null
+          });
+        }
+      });
+      return allItems;
+    },
+
     filter() {
       const term = this.filterTerm.toLowerCase();
-      this.filterResults = @js($items).filter(i => i.name.toLowerCase().includes(term));
+      const allItems = this.flattenItems();
+      this.filterResults = allItems.filter(i =>
+        i.name.toLowerCase().includes(term)
+      );
     },
 
     navigateResults(direction) {
@@ -45,6 +80,7 @@
     },
 
     selectOption(item) {
+      if (!item || !item.route) return;
       window.location.href = item.route;
       this.closeCommandPalette();
     },
@@ -70,7 +106,7 @@
     class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center"
     x-on:click.self="closeCommandPalette()" x-on:keydown.escape.prevent.stop="closeCommandPalette()">
 
-    <div class="bg-white w-full max-w-lg overflow-hidden" x-on:click.stop>
+    <div class="bg-white w-full max-w-lg overflow-hidden shadow-2xl" x-on:click.stop>
       <div class="flex items-center bg-gray-100 px-4 py-3 gap-4">
         <i data-lucide="search" class="size-5 opacity-50" stroke-width="1.5"></i>
         <input x-ref="searchInput" x-model="filterTerm" x-on:input.debounce.100ms="filter"
@@ -81,20 +117,25 @@
       </div>
 
       <ul class="max-h-64 overflow-y-auto divide-y divide-gray-100">
-        <template x-for="(item, index) in filterResults" :key="item.id">
+        <template x-for="(item, index) in filterResults" :key="index">
           <li x-on:click="selectOption(item)" x-on:mouseenter="highlightedIndex = index"
             x-bind:class="isHighlighted(index) ? 'bg-gray-200 text-gray-900' : 'text-gray-700'"
-            class="cursor-pointer px-4 py-3 flex items-center gap-4 text-sm transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="size-5 opacity-60" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7" />
-            </svg>
-            <span x-text="item.name" class="font-medium"></span>
+            class="cursor-pointer px-4 py-3 flex items-center justify-between gap-4 text-sm transition">
+            <div class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-5 opacity-60" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7" />
+              </svg>
+              <span x-text="item.name" class="font-medium"></span>
+            </div>
+            <template x-if="item.parent">
+              <span x-text="item.parent" class="text-xs text-gray-500"></span>
+            </template>
           </li>
         </template>
       </ul>
 
-      <div x-show="filterResults.length === 0" class="p-4 text-center text-sm text-gray-500">
+      <div x-show="filterResults.length === 0 && filterTerm" class="p-4 text-center text-sm text-gray-500">
         No results found.
       </div>
     </div>

@@ -32,6 +32,9 @@
               SDG
             </th>
             <th scope="col" class="px-6 py-3">
+              Date
+            </th>
+            <th scope="col" class="px-6 py-3">
               Action
             </th>
           </tr>
@@ -42,11 +45,14 @@
               <td class="p-4">
                 <img src="https://lh3.googleusercontent.com/d/{{ $item->image }}" class="w-32 object-contain">
               </td>
-              <td class="px-6 py-4 min-w-sm">
+              <td class="px-6 py-4 min-w-xs">
                 {{ $item->title }}
               </td>
-              <td class="px-6 py-4 uppercase min-w-xs">
+              <td class="px-6 py-4 uppercase min-w-[200px]">
                 {{ $item->sdg->pluck('name')->implode(', ') }}
+              </td>
+              <td class="px-6 py-4">
+                {{ Illuminate\Support\Carbon::parse($item->date)->format('F j, Y') }}
               </td>
               <td class="px-6 py-4">
                 <a href="{{ route('admin.edit.news', $item->id) }}">

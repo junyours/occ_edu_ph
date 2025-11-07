@@ -1,23 +1,27 @@
 @php
   $items = [
-    ['name' => 'Home', 'route' => 'home'],
-    ['name' => 'About Us', 'route' => 'home'],
-    ['name' => 'Programs', 'route' => 'home'],
-    ['name' => 'Events', 'route' => 'home'],
-    ['name' => 'News', 'route' => 'news'],
-    ['name' => 'SDG', 'route' => 'sdg'],
-    ['name' => 'Contact Us', 'route' => 'home'],
+    ['name' => 'Home', 'route' => route('home')],
+    [
+      'name' => 'Academic Programs',
+      'subitems' => [
+        ['name' => 'Teacher Education Department', 'route' => '#'],
+        ['name' => 'College of Business Administration', 'route' => '#'],
+        ['name' => 'College of Information Technology', 'route' => '#'],
+      ]
+    ],
+    ['name' => 'News', 'route' => route('news')],
+    ['name' => 'SDG', 'route' => route('sdg')],
     [
       'name' => 'Services',
       'subitems' => [
-        ['name' => 'Enrollment System', 'link' => 'https://occph.com/login'],
+        ['name' => 'Enrollment System', 'route' => 'https://occph.com/login'],
       ]
     ],
   ]
 @endphp
 
-<div class="hidden bg-slate-900 text-white md:block">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+<div class="hidden bg-slate-800 text-white md:block">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
     <div class="flex items-center gap-6">
       <a href="#" class="hover:text-blue-700 text-sm transition-colors">
         Staff
@@ -59,7 +63,7 @@
 </div>
 <nav x-data="{ mobileMenuIsOpen: false }" x-on:click.away="mobileMenuIsOpen = false"
   class="bg-white max-md:shadow max-md:sticky max-md:top-0 max-md:z-50">
-  <div class="relative max-w-7xl mx-auto md:px-6 md:pt-6 md:pb-12 max-md:p-4 max-md:pb-5">
+  <div class="relative max-w-6xl mx-auto md:px-6 md:pt-6 md:pb-12 max-md:p-4 max-md:pb-5">
     <div class="flex items-center justify-between">
       <a href="{{ route('home') }}" class="shrink-0">
         <img src="{{ asset('images/logo.png') }}" alt="occ-logo" class="h-12 object-contain">
@@ -72,8 +76,7 @@
           <div class="flex flex-col">
             <span class="text-gray-600 text-xs font-medium">Address</span>
             <a href="https://maps.app.goo.gl/88x9eRcWgGJrrc4i6" target="_blank"
-              class="font-semibold text-sm hover:underline">C. Salva
-              St, Opol, 9016 Misamis Oriental</a>
+              class="font-semibold text-sm hover:underline">Poblacion, Opol, Misamis Oriental</a>
           </div>
         </div>
         <div class="h-8 border-r-[1.5px] border-gray-300"></div>
@@ -83,8 +86,8 @@
           </div>
           <div class="flex flex-col">
             <span class="text-gray-600 text-xs font-medium">Email</span>
-            <a href="mailto:opolcommunitycollege@yahoo.com" target="_blank"
-              class="font-semibold text-sm hover:underline">opolcommunitycollege@yahoo.com</a>
+            <a href="mailto:opolcommunitycollege@occ.edu.ph" target="_blank"
+              class="font-semibold text-sm hover:underline">opolcommunitycollege@occ.edu.ph</a>
           </div>
         </div>
         <div class="h-8 border-r-[1.5px] border-gray-300"></div>
@@ -94,7 +97,7 @@
           </div>
           <div class="flex flex-col">
             <span class="text-gray-600 text-xs font-medium">Phone Number</span>
-            <a href="tel:09524784815" target="_blank" class="font-semibold text-sm hover:underline">09524784815</a>
+            <a href="tel:0915 277 5842" target="_blank" class="font-semibold text-sm hover:underline">0915 277 5842</a>
           </div>
         </div>
       </div>
@@ -120,7 +123,7 @@
               </button>
               <li x-cloak x-show="isExpanded" x-collapse class="flex flex-col gap-2 mt-2">
                 @foreach ($item['subitems'] as $subitem)
-                  <a href="{{ $subitem['link'] }}" target="_blank" class="w-full font-medium focus:underline">
+                  <a href="{{ $subitem['route'] }}" target="_blank" class="w-full font-medium focus:underline">
                     {{ $subitem['name'] }}
                   </a>
                 @endforeach
@@ -128,7 +131,7 @@
             </div>
           @else
             <li class="py-4">
-              <a href="{{ route($item['route']) }}" class="w-full font-medium focus:underline">
+              <a href="{{ $item['route'] }}" class="w-full font-medium focus:underline">
                 {{ $item['name'] }}
               </a>
             </li>
@@ -137,10 +140,10 @@
       </ul>
     </div>
     <div class="hidden absolute z-50 inset-x-0 -bottom-6.5 justify-center md:flex">
-      <div class="bg-gray-100 flex-1 flex items-center gap-6 mx-6">
+      <div class="bg-gray-200 flex-1 flex items-center gap-6 mx-6">
         <a href="#">
           <button type="button"
-            class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap bg-slate-900 px-5.5 py-3.5 tracking-wide transition-colors text-center text-white cursor-pointer">
+            class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap bg-slate-800 px-5.5 py-3.5 tracking-wide transition-colors text-center text-white cursor-pointer">
             <span class="relative z-10">
               Get More Info
             </span>
@@ -160,10 +163,10 @@
                     x-bind:class="open  ?  'rotate-180'  :  ''"></i>
                 </button>
                 <div
-                  class="absolute min-w-[280px] left-1/2 top-full border border-gray-300 -translate-x-1/2 mt-2 bg-white shadow p-6 z-50 space-y-4"
+                  class="absolute min-w-[280px] left-1/2 top-full border border-gray-300 -translate-x-1/2 mt-2 bg-white shadow-2xl p-6 z-50 space-y-4"
                   x-show="open" x-transition.origin.top.duration.200ms x-cloak>
                   @foreach ($item['subitems'] as $subitem)
-                    <a href="{{ $subitem['link'] }}" target="_blank"
+                    <a href="{{ $subitem['route'] }}" target="_blank"
                       class="hover:text-blue-700 font-medium transition-colors flex items-center gap-2">
                       <i data-lucide="arrow-right" class="size-5" stroke-width="1.5"></i>
                       {{ $subitem['name'] }}
@@ -172,7 +175,7 @@
                 </div>
               </div>
             @else
-              <a href="{{ route($item['route']) }}" class="hover:text-blue-700 font-medium transition-colors">
+              <a href="{{ $item['route'] }}" class="hover:text-blue-700 font-medium transition-colors">
                 {{ $item['name'] }}
               </a>
             @endif

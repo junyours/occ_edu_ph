@@ -6,14 +6,14 @@
       <div class="flex flex-col gap-6">
         <a href="{{ url()->previous() }}">
           <button type="button"
-            class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap border border-slate-900 px-5.5 py-3.5 tracking-wide transition-colors text-center cursor-pointer">
+            class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap border border-slate-800 px-5.5 py-3.5 tracking-wide transition-colors text-center cursor-pointer">
             <i data-lucide="move-left" stroke-width="1.5"
               class="relative z-10 transition-colors duration-300 group-hover:text-white"></i>
             <span class="relative z-10 transition-colors duration-300 group-hover:text-white">
               Back to News
             </span>
             <span
-              class="absolute left-0 top-0 h-full w-0 bg-slate-900 transition-all duration-600 ease-out group-hover:w-full"></span>
+              class="absolute left-0 top-0 h-full w-0 bg-slate-800 transition-all duration-600 ease-out group-hover:w-full"></span>
           </button>
         </a>
         <div class="space-y-10">

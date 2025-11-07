@@ -14,7 +14,9 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::with('sdg')->get();
+        $news = News::with('sdg')
+            ->orderByDesc('date')
+            ->get();
 
         return view('pages.app.news.index', compact('news'));
     }

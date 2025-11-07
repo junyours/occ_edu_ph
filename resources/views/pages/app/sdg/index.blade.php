@@ -39,7 +39,7 @@
               <td class="p-4">
                 <img src="https://lh3.googleusercontent.com/d/{{ $sdg->image }}" class="w-16 object-contain">
               </td>
-              <td class="px-6 py-4 min-w-sm uppercase">
+              <td class="px-6 py-4 min-w-xs uppercase">
                 {{ $sdg->name }}
               </td>
               <td class="px-6 py-4">

@@ -1,5 +1,5 @@
 <footer class="border-t border-gray-200">
-  <div class="mx-auto w-full max-w-7xl p-4 py-6 lg:py-8">
+  <div class="mx-auto w-full max-w-6xl p-4 py-6 lg:py-8">
     <div class="md:flex md:justify-between">
       <div class="mb-6 md:mb-0">
         <a href={{ route('home') }}>
@@ -12,18 +12,6 @@
           <ul class="text-gray-500 font-medium">
             <li class="mb-4">
               <a href="https://www.facebook.com/OCCofficialPage" target="_blank" class="hover:underline">Facebook</a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h2 class="mb-6 text-sm font-semibold uppercase">Contact us</h2>
-          <ul class="text-gray-500 font-medium">
-            <li class="mb-4">
-              <a href="mailto:opolcommunitycollege@yahoo.com" target="_blank"
-                class="wrap-break-word hover:underline">opolcommunitycollege@yahoo.com</a>
-            </li>
-            <li class="mb-4">
-              <a href="tel:09524784815" target="_blank" class="hover:underline">09524784815</a>
             </li>
           </ul>
         </div>
