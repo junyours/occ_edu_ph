@@ -25,6 +25,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/', [WebController::class, 'home'])->name('home');
+
+Route::get('/programs/ted', [WebController::class, 'ted'])->name('ted');
+Route::get('/programs/cba', [WebController::class, 'cba'])->name('cba');
+Route::get('/programs/cit', [WebController::class, 'cit'])->name('cit');
+
 Route::get('/news', [WebController::class, 'news'])->name('news');
 Route::get('/news/article/{id}', [WebController::class, 'article'])->name('news.article');
 

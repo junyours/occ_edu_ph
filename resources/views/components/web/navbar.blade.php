@@ -4,9 +4,9 @@
     [
       'name' => 'Academic Programs',
       'subitems' => [
-        ['name' => 'Teacher Education Department', 'route' => '#'],
-        ['name' => 'College of Business Administration', 'route' => '#'],
-        ['name' => 'College of Information Technology', 'route' => '#'],
+        ['name' => 'Teacher Education Department', 'route' => route('ted')],
+        ['name' => 'College of Business Administration', 'route' => route('cba')],
+        ['name' => 'College of Information Technology', 'route' => route('cit')],
       ]
     ],
     ['name' => 'News', 'route' => route('news')],
@@ -123,7 +123,7 @@
               </button>
               <li x-cloak x-show="isExpanded" x-collapse class="flex flex-col gap-2 mt-2">
                 @foreach ($item['subitems'] as $subitem)
-                  <a href="{{ $subitem['route'] }}" target="_blank" class="w-full font-medium focus:underline">
+                  <a href="{{ $subitem['route'] }}" class="w-full font-medium focus:underline">
                     {{ $subitem['name'] }}
                   </a>
                 @endforeach
@@ -166,7 +166,7 @@
                   class="absolute min-w-[280px] left-1/2 top-full border border-gray-300 -translate-x-1/2 mt-2 bg-white shadow-2xl p-6 z-50 space-y-4"
                   x-show="open" x-transition.origin.top.duration.200ms x-cloak>
                   @foreach ($item['subitems'] as $subitem)
-                    <a href="{{ $subitem['route'] }}" target="_blank"
+                    <a href="{{ $subitem['route'] }}"
                       class="hover:text-blue-700 font-medium transition-colors flex items-center gap-2">
                       <i data-lucide="arrow-right" class="size-5" stroke-width="1.5"></i>
                       {{ $subitem['name'] }}

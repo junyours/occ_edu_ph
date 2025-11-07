@@ -18,6 +18,21 @@ class WebController extends Controller
         return view('pages.web.home.index', compact('news'));
     }
 
+    public function ted()
+    {
+        return view('pages.web.programs.ted.index');
+    }
+
+    public function cba()
+    {
+        return view('pages.web.programs.cba.index');
+    }
+
+    public function cit()
+    {
+        return view('pages.web.programs.cit.index');
+    }
+
     public function news()
     {
         $news = News::with('sdg')
