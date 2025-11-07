@@ -23,7 +23,9 @@
     </div>
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
       @foreach ($news as $item)
-        <div class="flex flex-col shadow-2xl border border-slate-100">
+        <div x-data="{ shown: false }" x-intersect:enter="shown = true" x-intersect:leave="shown = false"
+          class="flex flex-col shadow-2xl border border-slate-100 transform transition duration-800 ease-out"
+          :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
           <div class="group h-56 overflow-hidden relative">
             <img src="https://lh3.googleusercontent.com/d/{{ $item->image }}"
               class="size-full object-cover transform transition duration-800 ease-in-out group-hover:scale-125 group-hover:-rotate-2">

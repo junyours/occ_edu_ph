@@ -7,7 +7,9 @@
       </div>
       <h1 class="text-2xl font-semibold">Discover our vibrant campus community</h1>
     </div>
-    <div class="grid md:grid-cols-2 items-center gap-6">
+    <div x-data="{ shown: false }" x-intersect:enter="shown = true" x-intersect:leave="shown = false"
+      class="grid md:grid-cols-2 items-center gap-6 transform transition duration-800 ease-out"
+      :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
       <div class="space-y-8">
         <p class="text-gray-600 font-medium">
           We’d love to welcome you to Opol Community College!

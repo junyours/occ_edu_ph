@@ -1,6 +1,8 @@
 <section class="max-w-6xl mx-auto">
   <div class="mx-6 space-y-8">
-    <div class="h-80 flex shadow-2xl border border-slate-100">
+    <div x-data="{ shown: false }" x-intersect:enter="shown = true" x-intersect:leave="shown = false"
+      class="h-80 flex shadow-2xl border border-slate-100 overflow-hidden transform transition duration-800 ease-out"
+      :class="shown ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'">
       <div class="group relative flex-1 overflow-hidden">
         <img src="{{ asset('images/others/1.jpg') }}"
           class="size-full object-cover transform transition duration-800 ease-in-out group-hover:scale-125 group-hover:-rotate-2">
@@ -16,7 +18,9 @@
           empowering leaders, and shaping entrepreneurs.</p>
       </div>
     </div>
-    <div class="h-80 flex shadow-2xl border border-slate-100">
+    <div x-data="{ shown: false }" x-intersect:enter="shown = true" x-intersect:leave="shown = false"
+      class="h-80 flex shadow-2xl border border-slate-100 overflow-hidden transform transition duration-800 ease-out"
+      :class="shown ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'">
       <div class="flex-1 flex flex-col justify-center gap-8 p-6">
         <div class="h-0.5 w-10 bg-blue-700"></div>
         <p class="font-medium text-gray-600">Opol Community College is dedicated to producing competitive graduates
