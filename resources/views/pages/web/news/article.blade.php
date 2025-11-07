@@ -1,5 +1,11 @@
 @extends('layouts.web')
 
+@section('meta')
+  <meta property="og:title" content="{{ $article->title }}" />
+  <meta property="og:description" content="{{ $article->description }}" />
+  <meta property="og:image" content="https://lh3.googleusercontent.com/d/{{ $article->image }}" />
+@endsection
+
 @section('content')
   <div class="pt-8">
     <div class="space-y-20 max-w-3xl mx-auto p-6">
@@ -20,7 +26,7 @@
           <div class="space-y-8">
             <h1 class="text-2xl font-semibold">{{ $article->title }}</h1>
             <div class="flex items-center gap-2">
-              <i data-lucide="calendar"></i>
+              <i data-lucide="calendar-days"></i>
               <span class="font-medium">
                 {{ Illuminate\Support\Carbon::parse($article->date)->format('F j, Y') }}
               </span>
