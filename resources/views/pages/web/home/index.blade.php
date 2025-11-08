@@ -1,7 +1,7 @@
 @extends('layouts.web')
 
 @section('content')
-  <div class="space-y-20">
+  <div class="space-y-10 md:space-y-20">
     @include('pages.web.home.sections.hero')
     @include('pages.web.home.sections.feature')
     @include('pages.web.home.sections.vision-mission')

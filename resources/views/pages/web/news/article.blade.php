@@ -7,10 +7,10 @@
 @endsection
 
 @section('content')
-  <div class="pt-8">
-    <div class="space-y-20 max-w-3xl mx-auto p-6">
+  <div class="md:pt-8">
+    <div class="space-y-20 max-w-3xl mx-auto p-4 md:p-6">
       <div class="flex flex-col gap-6">
-        <a href="{{ url()->previous() }}">
+        <a href="{{ url()->previous() !== url()->current() ? url()->previous() : route('news') }}">
           <button type="button"
             class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap border border-slate-800 px-5.5 py-3.5 tracking-wide transition-colors text-center cursor-pointer">
             <i data-lucide="move-left" stroke-width="1.5"

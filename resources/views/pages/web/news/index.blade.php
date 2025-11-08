@@ -1,14 +1,16 @@
 @extends('layouts.web')
 
 @section('content')
-  <div class="relative bg-linear-to-b from-blue-500/70 via-sky-400/60 to-cyan-300/1 py-28 px-6">
-    <h1 class="text-3xl font-extrabold uppercase text-center text-white">Latest News & Updates</h1>
+  <div class="relative bg-linear-to-b from-blue-500/70 via-sky-400/60 to-cyan-300/1 py-10 md:py-28 px-4 md:px-6">
+    <h1 class="text-2xl md:text-3xl font-extrabold uppercase text-center text-white">Latest News & Updates</h1>
   </div>
-  <div class="max-w-6xl mx-auto p-6">
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+  <div class="max-w-6xl mx-auto p-4 md:p-6">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
       @foreach ($news as $item)
-        <div class="flex flex-col shadow-2xl border border-slate-100">
-          <div class="group h-56 overflow-hidden relative">
+        <div x-data="{ shown: false }" x-intersect:enter="shown = true" x-intersect:leave="shown = false"
+          class="flex flex-col shadow-2xl border border-slate-100 transform transition duration-800 ease-out"
+          :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
+          <div class="group h-44 md:h-56 overflow-hidden relative">
             <img src="https://lh3.googleusercontent.com/d/{{ $item->image }}"
               class="size-full object-cover transform transition duration-800 ease-in-out group-hover:scale-125 group-hover:-rotate-2">
             <div class="absolute top-4 left-4 bg-blue-700 flex flex-col items-center shadow-2xl border border-slate-100">
@@ -29,8 +31,8 @@
                   @endforeach
                 </div>
               </div>
-              <h1 class="text-xl font-semibold line-clamp-2">{{ $item->title }}</h1>
-              <p class="text-gray-600 line-clamp-3 text-sm">{{ $item->description }}</p>
+              <h1 class="text-xl font-semibold line-clamp-1 md:line-clamp-2">{{ $item->title }}</h1>
+              <p class="text-gray-600 line-clamp-2 md:line-clamp-3 text-sm">{{ $item->description }}</p>
             </div>
             <a href="{{ route('news.article', ['id' => $item->image]) }}" class="w-fit">
               <button type="button"

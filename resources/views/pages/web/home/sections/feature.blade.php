@@ -28,7 +28,7 @@
 @endphp
 
 <section class="max-w-6xl mx-auto relative">
-  <div class="-mt-36 mx-6">
+  <div class="-mt-24 md:-mt-36 mx-4 md:mx-6">
     <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
       @foreach ($items as $item)
         <div x-data="{ shown: false }" x-intersect:enter="shown = true" x-intersect:leave="shown = false"

@@ -1,19 +1,19 @@
-<section class="relative h-[600px] w-full overflow-hidden">
-  <video class="w-full h-[600px] object-cover" autoplay loop muted playsinline>
+<section class="relative h-[400px] md:h-[600px] w-full overflow-hidden">
+  <video class="size-full object-cover" autoplay loop muted playsinline>
     <source src="{{ asset('videos/promotional.mp4') }}" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <div class="absolute inset-0 bg-black/50"></div>
   <div class="max-w-6xl mx-auto">
-    <div class="absolute bottom-30 mx-6 space-y-10 text-white">
+    <div class="absolute bottom-20 md:bottom-30 mx-4 md:mx-6 space-y-10 text-white">
       <div class="flex flex-col gap-4 max-md:items-center max-md:text-center">
-        <h1 class="font-bold text-4xl">
+        <h1 class="font-bold text-2xl md:text-4xl">
           Welcome to
         </h1>
-        <h2 class="font-bold text-5xl uppercase">
+        <h2 class="font-bold text-3xl md:text-5xl uppercase">
           Opol Community College
         </h2>
-        <p class="text-lg">
+        <p class="md:text-lg">
           Fueling ambition, advancing knowledge, and creating opportunities for every learner.
         </p>
       </div>

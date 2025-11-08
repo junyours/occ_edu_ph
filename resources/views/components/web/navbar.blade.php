@@ -20,9 +20,9 @@
   ]
 @endphp
 
-<div class="hidden bg-slate-800 text-white md:block">
-  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-    <div class="flex items-center gap-6">
+<div class="bg-slate-800 text-white">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 py-4 flex items-center justify-end md:justify-between">
+    <div class="hidden items-center gap-6 md:flex">
       <a href="#" class="hover:text-blue-700 text-sm transition-colors">
         Staff
       </a>
@@ -62,7 +62,7 @@
   </div>
 </div>
 <nav x-data="{ mobileMenuIsOpen: false }" x-on:click.away="mobileMenuIsOpen = false"
-  class="bg-white max-md:shadow max-md:sticky max-md:top-0 max-md:z-50">
+  class="bg-white max-md:shadow-2xl max-md:sticky max-md:top-0 max-md:z-50">
   <div class="relative max-w-6xl mx-auto md:px-6 md:pt-6 md:pb-12 max-md:p-4 max-md:pb-5">
     <div class="flex items-center justify-between">
       <a href="{{ route('home') }}" class="shrink-0">
@@ -111,7 +111,7 @@
         x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0"
         x-transition:leave="transition motion-reduce:transition-none ease-out duration-300"
         x-transition:leave-start="translate-y-0" x-transition:leave-end="-translate-y-full" id="mobileMenu"
-        class="fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-gray-300 border-b border-gray-300 bg-white px-4 pb-4 pt-20 md:hidden">
+        class="fixed max-h-svh overflow-y-auto inset-x-0 top-0 z-10 flex flex-col divide-y divide-gray-300 border-b border-gray-300 bg-white px-4 pb-4 pt-20 md:hidden max-md:shadow-2xl">
         @foreach ($items as $item)
           @if (isset($item['subitems']))
             <div x-data="{ isExpanded: false }" class="py-4">

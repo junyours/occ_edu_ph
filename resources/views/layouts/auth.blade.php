@@ -13,7 +13,7 @@
 </head>
 
 <body class="antialiased">
-  <main class="min-h-screen flex items-center justify-center p-6">
+  <main class="min-h-screen flex items-center justify-center p-4 md:p-6">
     <div
       class="w-full max-w-sm group flex rounded-sm flex-col overflow-hidden border border-neutral-300 bg-neutral-50 text-neutral-600">
       <div class="space-y-8 p-6">

@@ -1,5 +1,5 @@
 <section class="max-w-6xl mx-auto">
-  <div class="mx-6 space-y-8">
+  <div class="mx-4 md:mx-6 space-y-8">
     <div class="space-y-2">
       <div class="flex items-center gap-4">
         <div class="h-0.5 w-10 bg-blue-700"></div>
@@ -63,7 +63,7 @@
       </div>
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.5667566226452!2d124.5699053735227!3d8.521727496726207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32fff45858a8e7f1%3A0x11bd2a01ee20bcd3!2sOpol%20Community%20College!5e1!3m2!1sen!2sph!4v1762077637937!5m2!1sen!2sph"
-        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>

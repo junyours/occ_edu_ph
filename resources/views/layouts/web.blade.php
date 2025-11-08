@@ -24,7 +24,7 @@
   <main>
     @yield('content')
   </main>
-  <div class="mt-20">
+  <div class="mt-10 md:mt-20">
     @include('components.web.footer')
   </div>
   <script src="https://unpkg.com/lucide@latest"></script>
