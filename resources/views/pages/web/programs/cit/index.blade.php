@@ -3,7 +3,7 @@
 @section('content')
   <div class="relative bg-linear-to-b from-red-500/70 via-rose-400/60 to-pink-300/1 py-10 md:py-20">
     <div class="max-w-6xl mx-auto px-4 md:px-6 flex items-center gap-10 md:gap-20 max-md:flex-col">
-      <img src="{{ asset('images/departments/CIT.png') }}" alt="cit" class="size-56 md:size-62">
+      <img src="{{ asset('images/departments/CIT.png') }}" alt="cit" class="size-52 md:size-62">
       <div class="space-y-4">
         <h1 class="text-3xl font-extrabold text-white max-md:text-center">College of Information Technology</h1>
         <p class="font-medium max-md:text-justify">The College of Information Technology prepares students to become

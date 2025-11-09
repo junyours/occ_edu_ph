@@ -3,7 +3,7 @@
 @section('content')
   <div class="relative bg-linear-to-b from-orange-500/70 via-amber-400/60 to-yellow-300/1 py-10 md:py-20">
     <div class="max-w-6xl mx-auto px-4 md:px-6 flex items-center gap-10 md:gap-20 max-md:flex-col">
-      <img src="{{ asset('images/departments/CBA.png') }}" alt="cba" class="size-56 md:size-62">
+      <img src="{{ asset('images/departments/CBA.png') }}" alt="cba" class="size-52 md:size-62">
       <div class="space-y-4">
         <h1 class="text-3xl font-extrabold text-white max-md:text-center">College of Business Administration</h1>
         <p class="font-medium max-md:text-justify">The College of Business Administration develops future leaders who

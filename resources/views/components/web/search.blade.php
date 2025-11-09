@@ -4,9 +4,9 @@
     [
       'name' => 'Academic Programs',
       'subitems' => [
-        ['name' => 'Teacher Education Department', 'route' => '#'],
-        ['name' => 'College of Business Administration', 'route' => '#'],
-        ['name' => 'College of Information Technology', 'route' => '#'],
+        ['name' => 'Teacher Education Department', 'route' => route('ted')],
+        ['name' => 'College of Business Administration', 'route' => route('cba')],
+        ['name' => 'College of Information Technology', 'route' => route('cit')],
       ]
     ],
     ['name' => 'News', 'route' => route('news')],
@@ -17,7 +17,7 @@
         ['name' => 'Enrollment System', 'route' => 'https://occph.com/login'],
       ]
     ],
-  ];
+  ]
 @endphp
 
 <div x-data="{
