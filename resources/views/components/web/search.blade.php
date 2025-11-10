@@ -14,7 +14,7 @@
     [
       'name' => 'Services',
       'subitems' => [
-        ['name' => 'Enrollment System', 'route' => 'https://occph.com/login'],
+        ['name' => 'Enrollment System', 'route' => 'https://occ-enrollment.laravel.cloud/login'],
       ]
     ],
   ]
