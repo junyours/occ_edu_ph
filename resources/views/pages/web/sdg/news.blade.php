@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="max-w-6xl mx-auto pt-4 md:pt-12 px-4 md:px-6 pb-4 md:pb-6 space-y-10 md:space-y-20">
-    <div class="space-y-4">
+    <div class="space-y-4 md:space-y-6">
       <div class="grid grid-cols-5 md:grid-cols-9 gap-4">
         @foreach ($sdgs as $item)
           <a href={{ route('sdg.news', $item->name) }} class="transition duration-300 hover:scale-105">

@@ -4,7 +4,7 @@
   <div class="relative bg-linear-to-b from-blue-500/70 via-sky-400/60 to-cyan-300/1 py-10 md:py-28 px-4 md:px-6">
     <h1 class="text-2xl md:text-3xl font-extrabold uppercase text-center text-white">Sustainable Development Goals</h1>
   </div>
-  <div class="max-w-6xl mx-auto p-4 md:p-6 space-y-10 md:space-y-20">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 space-y-10 md:space-y-20">
     <div class="grid grid-cols-4 md:grid-cols-6 gap-4">
       @foreach ($sdgs as $sdg)
         <a href="{{ route('sdg.news', $sdg->name) }}" class="transition duration-300 hover:scale-105">

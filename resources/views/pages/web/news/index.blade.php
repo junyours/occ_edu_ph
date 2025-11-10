@@ -4,7 +4,7 @@
   <div class="relative bg-linear-to-b from-blue-500/70 via-sky-400/60 to-cyan-300/1 py-10 md:py-28 px-4 md:px-6">
     <h1 class="text-2xl md:text-3xl font-extrabold uppercase text-center text-white">Latest News & Updates</h1>
   </div>
-  <div class="max-w-6xl mx-auto p-4 md:p-6">
+  <div class="max-w-6xl mx-auto px-4 md:px-6">
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
       @foreach ($news as $item)
         <div x-data="{ shown: false }" x-intersect:enter="shown = true" x-intersect:leave="shown = false"
