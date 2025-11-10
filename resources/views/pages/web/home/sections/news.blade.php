@@ -8,7 +8,7 @@
         </div>
         <h1 class="text-2xl font-semibold">Catch up on what’s new</h1>
       </div>
-      <a href="{{ route('news') }}">
+      <a href="{{ route('news') }}" class="w-fit">
         <button type="button"
           class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap border border-slate-800 px-5.5 py-3.5 tracking-wide transition-colors text-center cursor-pointer">
           <span class="relative z-10 transition-colors duration-300 group-hover:text-white">

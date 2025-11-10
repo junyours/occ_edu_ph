@@ -33,13 +33,22 @@ class WebController extends Controller
         return view('pages.web.programs.cit.index');
     }
 
-    public function news()
+    public function news(Request $request)
     {
+        $search = $request->input('search');
+
         $news = News::with('sdg')
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%");
+                });
+            })
             ->orderByDesc('date')
             ->get();
 
-        return view('pages.web.news.index', compact('news'));
+        $count = $news->count();
+
+        return view('pages.web.news.index', compact('news', 'count', 'search'));
     }
 
     public function article($id)
@@ -58,18 +67,27 @@ class WebController extends Controller
         return view('pages.web.sdg.index', compact('sdgs'));
     }
 
-    public function sdgNews($name)
+    public function sdgNews(Request $request, $name)
     {
+        $search = $request->input('search');
+
         $sdg = Sdg::where('name', $name)->firstOrFail();
         $sdgs = Sdg::all();
 
         $news = News::whereHas('sdg', function ($query) use ($sdg) {
             $query->where('sdg_id', $sdg->id);
         })
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%");
+                });
+            })
             ->with('sdg')
             ->orderByDesc('date')
             ->get();
 
-        return view('pages.web.sdg.news', compact('sdg', 'sdgs', 'news'));
+        $count = $news->count();
+
+        return view('pages.web.sdg.news', compact('sdg', 'sdgs', 'news', 'count', 'search'));
     }
 }
