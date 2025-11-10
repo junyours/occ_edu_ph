@@ -4,6 +4,9 @@
   <meta property="og:title" content="{{ $article->title }}" />
   <meta property="og:description" content="{{ $article->description }}" />
   <meta property="og:image" content="https://lh3.googleusercontent.com/d/{{ $article->image }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ url()->current() }}" />
+  <meta property="og:site_name" content="{{ config('app.name') }}" />
 @endsection
 
 @section('content')
