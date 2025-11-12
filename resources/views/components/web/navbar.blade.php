@@ -4,9 +4,9 @@
     [
       'name' => 'Academic Programs',
       'subitems' => [
-        ['name' => 'Teacher Education Department', 'route' => route('ted')],
-        ['name' => 'College of Business Administration', 'route' => route('cba')],
-        ['name' => 'College of Information Technology', 'route' => route('cit')],
+        ['name' => 'Teacher Education Department', 'route' => route('ted'), 'image' => asset('images/departments/TED.png')],
+        ['name' => 'College of Business Administration', 'route' => route('cba'), 'image' => asset('images/departments/CBA.png')],
+        ['name' => 'College of Information Technology', 'route' => route('cit'), 'image' => asset('images/departments/CIT.png')],
       ]
     ],
     ['name' => 'News', 'route' => route('news')],
@@ -168,7 +168,11 @@
                   @foreach ($item['subitems'] as $subitem)
                     <a href="{{ $subitem['route'] }}"
                       class="hover:text-blue-700 font-medium transition-colors flex items-center gap-2">
-                      <i data-lucide="arrow-right" class="size-5" stroke-width="1.5"></i>
+                      @if (isset($subitem['image']))
+                        <img src="{{ $subitem['image'] }}" class="size-10 object-contain shrink-0">
+                      @else
+                        <i data-lucide="arrow-right" class="size-5" stroke-width="1.5"></i>
+                      @endif
                       {{ $subitem['name'] }}
                     </a>
                   @endforeach
