@@ -1,18 +1,18 @@
 @php
   $items = [
-    ['name' => 'Iyo, Gaudencio Jr. R.', 'position' => 'College Dean', 'image' => asset('images/departments/cit/6.png')],
-    ['name' => 'Madriaga, Ruben', 'position' => 'Faculty', 'image' => asset('images/departments/cit/9.png')],
-    ['name' => 'Ubarco, Jeffrey A.', 'position' => 'Faculty', 'image' => asset('images/departments/cit/12.png')],
-    ['name' => 'Daculan, Niel', 'position' => 'Faculty', 'image' => asset('images/departments/cit/2.png')],
-    ['name' => 'Linogao, Maria Jessa', 'position' => 'Faculty', 'image' => asset('images/departments/cit/7.png')],
-    ['name' => 'Daculan, Novelyn Joy', 'position' => 'Faculty', 'image' => asset('images/departments/cit/3.png')],
-    ['name' => 'Daculan, Reah Lou', 'position' => 'Faculty', 'image' => asset('images/departments/cit/4.png')],
-    ['name' => 'Cariaga, Johnfed', 'position' => 'Faculty', 'image' => asset('images/departments/cit/1.png')],
-    ['name' => 'Otoc, Jomar', 'position' => 'Faculty', 'image' => asset('images/departments/cit/11.png')],
-    ['name' => 'Micarte, Cyron', 'position' => 'Faculty', 'image' => asset('images/departments/cit/10.png')],
-    ['name' => 'Macua, John Rey', 'position' => 'Faculty', 'image' => asset('images/departments/cit/8.png')],
-    ['name' => 'Villastique, Ryan Jay', 'position' => 'Faculty', 'image' => asset('images/departments/cit/13.png')],
-    ['name' => 'Gebe, Barry T.', 'position' => 'Faculty', 'image' => asset('images/departments/cit/5.png')],
+    ['name' => 'Gaudencio Iyo Jr., MIT', 'position' => 'College Dean/System Administrator', 'image' => asset('images/departments/cit/6.png')],
+    ['name' => 'Ruben Madriaga, LPT, MIT', 'position' => 'Faculty/Research Coordinator', 'image' => asset('images/departments/cit/9.png')],
+    ['name' => 'Jeffrey Ubarco, MIT', 'position' => 'Faculty', 'image' => asset('images/departments/cit/12.png')],
+    ['name' => 'Niel Daculan', 'position' => 'Faculty', 'image' => asset('images/departments/cit/2.png')],
+    ['name' => 'Maria Jessa Linogao, MIT', 'position' => 'Faculty', 'image' => asset('images/departments/cit/7.png')],
+    ['name' => 'Novelyn Joy Daculan', 'position' => 'Faculty', 'image' => asset('images/departments/cit/3.png')],
+    ['name' => 'Reah Lou Daculan', 'position' => 'Faculty', 'image' => asset('images/departments/cit/4.png')],
+    ['name' => 'Johnfed Cariaga', 'position' => 'Faculty/ICT Officer', 'image' => asset('images/departments/cit/1.png')],
+    ['name' => 'Jomar Otoc', 'position' => 'Faculty', 'image' => asset('images/departments/cit/11.png')],
+    ['name' => 'Cyron Micarte', 'position' => 'Faculty', 'image' => asset('images/departments/cit/10.png')],
+    ['name' => 'John Rey Macua', 'position' => 'Faculty', 'image' => asset('images/departments/cit/8.png')],
+    ['name' => 'Ryan Jay Villastique', 'position' => 'Faculty', 'image' => asset('images/departments/cit/13.png')],
+    ['name' => 'Barry Gebe', 'position' => 'Faculty/Computer Programmer', 'image' => asset('images/departments/cit/5.png')],
   ]
 @endphp
 
