@@ -43,7 +43,7 @@
       <div class="space-y-4">
         @foreach ($items as $item)
           <div class="flex items-center gap-4">
-            <div class="relative size-28 rounded-full border border-slate-100">
+            <div class="relative size-28 rounded-full border border-slate-100 shrink-0">
               <img src="{{ asset('images/backgrounds/1.jpg') }}" class="size-full object-cover rounded-full">
               <div class="absolute inset-0 bg-blue-700/25 rounded-full"></div>
               <img src="{{ $item['image'] }}" class="absolute inset-0 rounded-full">

@@ -62,7 +62,7 @@
   </div>
 </div>
 <nav x-data="{ mobileMenuIsOpen: false }" x-on:click.away="mobileMenuIsOpen = false"
-  class="bg-white max-md:shadow-2xl max-md:sticky max-md:top-0 max-md:z-50">
+  class="bg-white/70 max-md:backdrop-blur-md max-md:shadow-2xl max-md:sticky max-md:top-0 max-md:z-50">
   <div class="relative max-w-6xl mx-auto md:px-6 md:pt-6 md:pb-12 max-md:p-4 max-md:pb-5">
     <div class="flex items-center justify-between">
       <a href="{{ route('home') }}" class="shrink-0">
