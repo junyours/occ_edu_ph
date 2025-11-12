@@ -1,18 +1,18 @@
 @php
   $items = [
-    ['name' => 'Gaudencio Iyo Jr., MIT', 'position' => 'College Dean/System Administrator', 'image' => asset('images/departments/cit/6.png')],
-    ['name' => 'Ruben Madriaga, LPT, MIT', 'position' => 'Faculty/Research Coordinator', 'image' => asset('images/departments/cit/9.png')],
-    ['name' => 'Jeffrey Ubarco, MIT', 'position' => 'Faculty', 'image' => asset('images/departments/cit/12.png')],
-    ['name' => 'Maria Jessa Linogao, MIT', 'position' => 'Faculty', 'image' => asset('images/departments/cit/7.png')],
-    ['name' => 'Novelyn Joy Daculan', 'position' => 'Faculty', 'image' => asset('images/departments/cit/3.png')],
-    ['name' => 'Reah Lou Daculan', 'position' => 'Faculty', 'image' => asset('images/departments/cit/4.png')],
-    ['name' => 'Niel Daculan', 'position' => 'Faculty', 'image' => asset('images/departments/cit/2.png')],
-    ['name' => 'Johnfed Cariaga', 'position' => 'Faculty/ICT Officer', 'image' => asset('images/departments/cit/1.png')],
-    ['name' => 'Jomar Otoc', 'position' => 'Faculty', 'image' => asset('images/departments/cit/11.png')],
-    ['name' => 'Cyron Micarte', 'position' => 'Faculty', 'image' => asset('images/departments/cit/10.png')],
-    ['name' => 'John Rey Macua', 'position' => 'Faculty', 'image' => asset('images/departments/cit/8.png')],
-    ['name' => 'Ryan Jay Villastique', 'position' => 'Faculty', 'image' => asset('images/departments/cit/13.png')],
-    ['name' => 'Barry Gebe', 'position' => 'Faculty/Computer Programmer', 'image' => asset('images/departments/cit/5.png')],
+    ['name' => 'Gaudencio Iyo Jr., MIT', 'position' => 'College Dean/System Administrator', 'image' => asset('images/departments/cit/faculty/6.png')],
+    ['name' => 'Ruben Madriaga, LPT, MIT', 'position' => 'Faculty/Research Coordinator', 'image' => asset('images/departments/cit/faculty/9.png')],
+    ['name' => 'Jeffrey Ubarco, MIT', 'position' => 'Faculty', 'image' => asset('images/departments/cit/faculty/12.png')],
+    ['name' => 'Maria Jessa Linogao, MIT', 'position' => 'Faculty', 'image' => asset('images/departments/cit/faculty/7.png')],
+    ['name' => 'Novelyn Joy Daculan', 'position' => 'Faculty', 'image' => asset('images/departments/cit/faculty/3.png')],
+    ['name' => 'Reah Lou Daculan', 'position' => 'Faculty', 'image' => asset('images/departments/cit/faculty/4.png')],
+    ['name' => 'Niel Daculan', 'position' => 'Faculty', 'image' => asset('images/departments/cit/faculty/2.png')],
+    ['name' => 'Johnfed Cariaga', 'position' => 'Faculty/ICT Officer', 'image' => asset('images/departments/cit/faculty/1.png')],
+    ['name' => 'Jomar Otoc', 'position' => 'Faculty', 'image' => asset('images/departments/cit/faculty/11.png')],
+    ['name' => 'Cyron Micarte', 'position' => 'Faculty', 'image' => asset('images/departments/cit/faculty/10.png')],
+    ['name' => 'John Rey Macua', 'position' => 'Faculty', 'image' => asset('images/departments/cit/faculty/8.png')],
+    ['name' => 'Ryan Jay Villastique', 'position' => 'Faculty', 'image' => asset('images/departments/cit/faculty/13.png')],
+    ['name' => 'Barry Gebe', 'position' => 'Faculty/Computer Programmer', 'image' => asset('images/departments/cit/faculty/5.png')],
   ]
 @endphp
 
@@ -34,8 +34,16 @@
       </div>
     </div>
   </div>
-  <div class="max-w-6xl mx-auto p-4 md:p-6">
-    <div class="space-y-6">
+  <div class="max-w-6xl mx-auto md:p-6">
+    <div class="flex px-4 pb-8">
+      <div class="flex-1">
+        <img src="{{ asset('images/departments/cit/flyers/1.jpg') }}" class="object-contain">
+      </div>
+      <div class="hidden flex-1 sm:block">
+
+      </div>
+    </div>
+    <div class="p-4 space-y-6">
       <div class="flex items-center gap-4">
         <h1 class="font-bold text-2xl text-nowrap">College Leadership</h1>
         <div class="h-px w-full bg-blue-700"></div>
