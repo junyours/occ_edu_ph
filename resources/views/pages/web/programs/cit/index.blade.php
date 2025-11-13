@@ -34,16 +34,8 @@
       </div>
     </div>
   </div>
-  <div class="max-w-6xl mx-auto md:p-6">
-    <div class="flex px-4 pb-8">
-      <div class="flex-1">
-        <img src="{{ asset('images/departments/cit/flyers/1.jpg') }}" class="object-contain">
-      </div>
-      <div class="hidden flex-1 sm:block">
-
-      </div>
-    </div>
-    <div class="p-4 space-y-6">
+  <div class="max-w-6xl mx-auto flex max-md:flex-col-reverse gap-8 px-4 md:p-6">
+    <div class="flex-1 space-y-6">
       <div class="flex items-center gap-4">
         <h1 class="font-bold text-2xl text-nowrap">College Leadership</h1>
         <div class="h-px w-full bg-blue-700"></div>
@@ -63,6 +55,9 @@
           </div>
         @endforeach
       </div>
+    </div>
+    <div class="flex-1">
+      <img src="{{ asset('images/departments/cit/flyers/1.jpg') }}" class="object-contain">
     </div>
   </div>
 @endsection

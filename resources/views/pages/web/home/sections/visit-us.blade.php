@@ -46,7 +46,8 @@
             </div>
             <div class="flex flex-col">
               <span class="text-gray-600 font-medium text-sm">Phone Number</span>
-              <a href="tel:0915 277 5842" target="_blank" class="font-semibold hover:underline">0915 277 5842</a>
+              <a href="tel:+639152775842" target="_blank" class="font-semibold hover:underline">+63 915 277
+                5842</a>
             </div>
           </div>
           <div class="flex items-center gap-4">

@@ -38,19 +38,6 @@
     </div>
     <div class="flex items-center gap-4">
       <div class="flex items-center gap-2">
-        <i data-lucide="user-round" class="size-5" stroke-width="1.5"></i>
-        @if (Auth::check())
-          <a href="{{ route('dashboard') }}" class="hover:text-blue-700 text-sm transition-colors">
-            {{ Auth::user()->name }}
-          </a>
-        @else
-          <a href="{{ route('login') }}" class="hover:text-blue-700 text-sm transition-colors">
-            Login
-          </a>
-        @endif
-      </div>
-      <div class="h-4 border-r-[1.5px] border-gray-300"></div>
-      <div class="flex items-center gap-2">
         <i data-lucide="message-circle-question-mark" class="size-5" stroke-width="1.5"></i>
         <a href="#" class="hover:text-blue-700 text-sm transition-colors">
           FAQ
@@ -97,7 +84,8 @@
           </div>
           <div class="flex flex-col">
             <span class="text-gray-600 text-xs font-medium">Phone Number</span>
-            <a href="tel:0915 277 5842" target="_blank" class="font-semibold text-sm hover:underline">0915 277 5842</a>
+            <a href="tel:+639152775842" target="_blank" class="font-semibold text-sm hover:underline">+63 915 277
+              5842</a>
           </div>
         </div>
       </div>
