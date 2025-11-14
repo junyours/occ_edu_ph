@@ -3,13 +3,15 @@
 @section('content')
   <div class="space-y-4 p-4">
     <div class="flex items-center justify-between gap-4">
-      <div class="relative flex w-full max-w-xs flex-col gap-1 text-neutral-600">
+      <form method="GET" class="relative flex w-full max-w-sm flex-col gap-1 text-neutral-600">
         <i data-lucide="search" class="absolute left-2.5 top-1/2 size-5 -translate-y-1/2 text-neutral-600/50"
           stroke-width="1.5"></i>
-        <input type="search"
-          class="w-full rounded-sm border border-neutral-300 bg-neutral-50 py-2 pl-10 pr-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
+        <input type="search" name="search" value="{{ request('search') }}"
+          class="w-full rounded-sm border border-neutral-300 bg-neutral-50 py-2 pl-10 pr-22 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75"
           name="search" placeholder="Search" aria-label="search" />
-      </div>
+        <button type="submit"
+          class="absolute right-0 h-full whitespace-nowrap rounded-sm bg-black border border-black px-4 py-2 text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">Search</button>
+      </form>
       <a href="{{ route('admin.create.sdg') }}">
         <button type="button"
           class="inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-sm bg-black border border-black px-4 py-2 text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">

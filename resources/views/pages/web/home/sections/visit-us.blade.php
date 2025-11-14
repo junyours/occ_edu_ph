@@ -11,7 +11,7 @@
       class="grid md:grid-cols-2 items-center gap-6 transform transition duration-800 ease-out"
       :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
       <div class="space-y-8">
-        <p class="text-gray-600 font-medium">
+        <p class="text-gray-600">
           We’d love to welcome you to Opol Community College!
           Our campus is open for visits, inquiries, and
           community engagement. Come and explore our vibrant
@@ -27,7 +27,7 @@
             <div class="flex flex-col">
               <span class="text-gray-600 font-medium text-sm">Address</span>
               <a href="https://maps.app.goo.gl/88x9eRcWgGJrrc4i6" target="_blank"
-                class="font-semibold hover:underline">Poblacion, Opol, Misamis Oriental</a>
+                class="font-medium hover:underline wrap-break-word">Poblacion, Opol, Misamis Oriental</a>
             </div>
           </div>
           <div class="flex items-center gap-4">
@@ -37,7 +37,7 @@
             <div class="flex flex-col">
               <span class="text-gray-600 font-medium text-sm">Email</span>
               <a href="mailto:opolcommunitycollege@occ.edu.ph" target="_blank"
-                class="font-semibold hover:underline">opolcommunitycollege@occ.edu.ph</a>
+                class="font-medium hover:underline wrap-break-word">opolcommunitycollege@occ.edu.ph</a>
             </div>
           </div>
           <div class="flex items-center gap-4">
@@ -46,7 +46,8 @@
             </div>
             <div class="flex flex-col">
               <span class="text-gray-600 font-medium text-sm">Phone Number</span>
-              <a href="tel:+639152775842" target="_blank" class="font-semibold hover:underline">+63 915 277
+              <a href="tel:+639152775842" target="_blank" class="font-medium hover:underline wrap-break-word">+63 915
+                277
                 5842</a>
             </div>
           </div>
@@ -56,7 +57,7 @@
             </div>
             <div class="flex flex-col">
               <span class="text-gray-600 font-medium text-sm">Office Hours</span>
-              <span class="font-semibold">Monday –
+              <span class="font-medium wrap-break-word">Monday –
                 Friday, 8:00 AM – 5:00 PM</span>
             </div>
           </div>

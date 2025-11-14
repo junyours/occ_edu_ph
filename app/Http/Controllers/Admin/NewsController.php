@@ -12,13 +12,18 @@ use Illuminate\Support\Facades\Http;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search');
+
         $news = News::with('sdg')
+            ->when($search, function ($query, $search) {
+                $query->where('title', 'like', "%{$search}%");
+            })
             ->orderByDesc('date')
             ->get();
 
-        return view('pages.app.news.index', compact('news'));
+        return view('pages.app.news.index', compact('news', 'search'));
     }
 
     public function create()

@@ -9,11 +9,16 @@ use Illuminate\Http\Request;
 
 class SdgController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $sdgs = Sdg::all();
+        $search = $request->input('search');
 
-        return view('pages.app.sdg.index', compact('sdgs'));
+        $sdgs = Sdg::when($search, function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%");
+        })
+            ->get();
+
+        return view('pages.app.sdg.index', compact('sdgs', 'search'));
     }
 
     public function create()
