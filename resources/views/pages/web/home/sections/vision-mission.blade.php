@@ -55,7 +55,7 @@
           <br>
           • Engage students in research-based instruction aimed at enhancing competitiveness; and
           <br>
-          • Participate in and support programs that develop leadership and entrepreneurship skills
+          • Participate in and support programs that develop leadership and entrepreneurship skills.
         </p>
       </div>
     </div>

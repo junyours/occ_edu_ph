@@ -6,8 +6,14 @@
   <div class="absolute inset-0 bg-black/50"></div>
   <div class="max-w-6xl mx-auto">
     <div class="absolute bottom-20 md:bottom-30 mx-4 md:mx-6 space-y-10 text-white">
-      <div class="flex flex-col gap-4 max-md:items-center max-md:text-center">
-        <h1 class="font-bold text-2xl md:text-4xl">
+      <div class="relative flex flex-col gap-4 md:pt-8 md:pl-8 max-md:items-center max-md:text-center">
+        <div class="hidden absolute inset-0 md:block">
+          <div
+            class="size-20 bg-linear-to-r from-cyan-300 via-sky-400 to-blue-500 [clip-path:polygon(0%_100%,12%_100%,12%_12%,100%_12%,100%_0%,38%_0%,0%_0%)]">
+          </div>
+        </div>
+        <h1
+          class="font-bold text-2xl md:text-3xl uppercase text-transparent bg-clip-text bg-linear-to-r from-cyan-300 via-sky-400 to-blue-500 w-fit">
           Welcome to
         </h1>
         <h2 class="font-bold text-3xl md:text-5xl uppercase">

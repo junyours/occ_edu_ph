@@ -1,10 +1,66 @@
 @extends('layouts.web')
 
 @section('content')
-  <div class="relative bg-linear-to-b from-blue-500/70 via-sky-400/60 to-cyan-300/1 py-10 md:py-28 px-4 md:px-6">
-    <h1 class="text-2xl md:text-3xl font-extrabold uppercase text-center text-white">Latest News & Updates</h1>
+  <div class="relative h-56 md:h-96 flex bg-linear-to-b from-blue-500/70 via-sky-400/60 to-cyan-300/1">
+    <div class="absolute inset-0 max-w-6xl mx-auto flex px-4 md:px-6">
+      <div class="flex-1 flex items-center">
+        <h1 class="text-xl md:text-4xl font-extrabold uppercase text-white">Latest News & Updates</h1>
+      </div>
+      <div class="flex-1"></div>
+    </div>
+    <div class="flex-1"></div>
+    <div class="flex-1 [clip-path:polygon(50%_0%,100%_0%,100%_100%,0%_100%)]">
+      <div x-data="{            
+                // Sets the time between each slides in milliseconds
+                autoplayIntervalTime: 3000,
+                slides: [
+                  @foreach ($images as $image)
+                    { image: 'https://lh3.googleusercontent.com/d/{{ $image }}' },
+                  @endforeach
+                  ],            
+                currentSlideIndex: 1,
+                isPaused: false,
+                autoplayInterval: null,
+                previous() {                
+                    if (this.currentSlideIndex > 1) {                    
+                        this.currentSlideIndex = this.currentSlideIndex - 1                
+                    } else {   
+                        // If it's the first slide, go to the last slide           
+                        this.currentSlideIndex = this.slides.length                
+                    }            
+                },            
+                next() {                
+                    if (this.currentSlideIndex < this.slides.length) {                    
+                        this.currentSlideIndex = this.currentSlideIndex + 1                
+                    } else {                 
+                        // If it's the last slide, go to the first slide    
+                        this.currentSlideIndex = 1                
+                    }            
+                },    
+                autoplay() {
+                    this.autoplayInterval = setInterval(() => {
+                        if (! this.isPaused) {
+                            this.next()
+                        }
+                    }, this.autoplayIntervalTime)
+                },
+                // Updates interval time   
+                setAutoplayInterval(newIntervalTime) {
+                    clearInterval(this.autoplayInterval)
+                    this.autoplayIntervalTime = newIntervalTime
+                    this.autoplay()
+                },    
+            }" x-init="autoplay" class="relative size-full">
+        <template x-for="(slide, index) in slides">
+          <div x-cloak x-show="currentSlideIndex == index + 1" class="absolute inset-0"
+            x-transition.opacity.duration.1000ms>
+            <img class="object-cover size-full" x-bind:src="slide.image" />
+          </div>
+        </template>
+      </div>
+    </div>
   </div>
-  <div id="news-list" class="max-w-6xl mx-auto px-4 md:px-6 space-y-8">
+  <div id="news-list" class="max-w-6xl mx-auto p-4 md:p-6 space-y-8">
     <div class="flex md:items-center md:justify-between max-md:gap-4 max-md:flex-col-reverse">
       <div class="w-fit bg-gray-100 py-2 px-3 text-sm">
         <h1 class="space-x-1.5"><span class="font-semibold text-blue-700">{{ $count }}</span><span
@@ -12,7 +68,7 @@
             found</span></h1>
       </div>
       <form method="GET" action="{{ route('news') }}#news-list"
-        class="relative flex h-10 w-full max-w-md flex-col gap-1 text-neutral-600">
+        class="relative flex h-10 w-full md:max-w-md flex-col gap-1 text-neutral-600">
         <input value="{{ request('search') }}" type="search"
           class="h-full w-full border border-neutral-300 bg-neutral-50 pl-4 pr-18 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:cursor-not-allowed disabled:opacity-75"
           name="search" placeholder="Search news and articles..." />

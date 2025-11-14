@@ -1,8 +1,19 @@
 @extends('layouts.web')
 
 @section('content')
-  <div class="relative bg-linear-to-b from-blue-500/70 via-sky-400/60 to-cyan-300/1 py-10 md:py-28 px-4 md:px-6">
-    <h1 class="text-2xl md:text-3xl font-extrabold uppercase text-center text-white">Sustainable Development Goals</h1>
+  <div class="relative h-56 md:h-96 flex bg-linear-to-b from-blue-500/70 via-sky-400/60 to-cyan-300/1">
+    <div class="absolute inset-0 max-w-6xl mx-auto flex px-4 md:px-6">
+      <div class="flex-1 flex items-center">
+        <h1 class="text-xl md:text-4xl font-extrabold uppercase text-white">Sustainable Development Goals</h1>
+      </div>
+      <div class="flex-1"></div>
+    </div>
+    <div class="flex-1"></div>
+    <div class="flex-1 flex items-center justify-center">
+      <div class="size-30 md:size-60">
+        <img src="{{ asset('images/sdg/bg.svg') }}" class="size-fit object-contain animate-spin [animation-duration:16s]">
+      </div>
+    </div>
   </div>
   <div class="max-w-6xl mx-auto px-4 md:px-6 space-y-10 md:space-y-20">
     <div class="grid grid-cols-4 md:grid-cols-6 gap-4">

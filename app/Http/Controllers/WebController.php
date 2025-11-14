@@ -46,9 +46,11 @@ class WebController extends Controller
             ->orderByDesc('date')
             ->get();
 
+        $images = $news->pluck('image');
+
         $count = $news->count();
 
-        return view('pages.web.news.index', compact('news', 'count', 'search'));
+        return view('pages.web.news.index', compact('news', 'count', 'search', 'images'));
     }
 
     public function article($id)
