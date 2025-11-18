@@ -51,6 +51,10 @@
       </div>
       <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
         @foreach ($news as $item)
+          @php
+            $hashids = new Hashids\Hashids(config('app.key'), 36);
+            $hashedId = $hashids->encode($item->id);
+          @endphp
           <div x-data="{ shown: false }" x-intersect:enter="shown = true" x-intersect:leave="shown = false"
             class="flex flex-col shadow-2xl border border-slate-100 transform transition duration-800 ease-out"
             :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
@@ -78,7 +82,7 @@
                 <h1 class="text-xl font-semibold line-clamp-1 md:line-clamp-2">{{ $item->title }}</h1>
                 <p class="text-gray-600 line-clamp-2 md:line-clamp-3 text-sm">{{ $item->description }}</p>
               </div>
-              <a href="{{ route('news.article', ['id' => $item->image]) }}" class="w-fit">
+              <a href="{{ route('news.article', $hashedId) }}" class="w-fit">
                 <button type="button"
                   class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap border border-slate-800 px-5.5 py-3.5 tracking-wide transition-colors text-center cursor-pointer">
                   <span class="relative z-10 transition-colors duration-300 group-hover:text-white">

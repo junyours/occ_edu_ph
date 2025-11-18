@@ -31,7 +31,7 @@ Route::get('/programs/cba', [WebController::class, 'cba'])->name('cba');
 Route::get('/programs/cit', [WebController::class, 'cit'])->name('cit');
 
 Route::get('/news', [WebController::class, 'news'])->name('news');
-Route::get('/news/article/{id}', [WebController::class, 'article'])->name('news.article');
+Route::get('/news/article/{hashedId}', [WebController::class, 'article'])->name('news.article');
 
 Route::get('/sdg', [WebController::class, 'sdg'])->name('sdg');
 Route::get('/news/{name}', [WebController::class, 'sdgNews'])->name('sdg.news');

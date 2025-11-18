@@ -4,9 +4,9 @@
     [
       'name' => 'Academic Programs',
       'subitems' => [
-        ['name' => 'Teacher Education Department', 'route' => route('ted'), 'image' => asset('images/departments/TED.png')],
-        ['name' => 'College of Business Administration', 'route' => route('cba'), 'image' => asset('images/departments/CBA.png')],
-        ['name' => 'College of Information Technology', 'route' => route('cit'), 'image' => asset('images/departments/CIT.png')],
+        ['name' => 'Teacher Education Department', 'route' => route('ted'), 'target' => '_self', 'image' => asset('images/departments/TED.png')],
+        ['name' => 'College of Business Administration', 'route' => route('cba'), 'target' => '_self', 'image' => asset('images/departments/CBA.png')],
+        ['name' => 'College of Information Technology', 'route' => route('cit'), 'target' => '_self', 'image' => asset('images/departments/CIT.png')],
       ]
     ],
     ['name' => 'News', 'route' => route('news')],
@@ -14,7 +14,7 @@
     [
       'name' => 'Services',
       'subitems' => [
-        ['name' => 'Enrollment System', 'route' => 'https://sis.occph.com/login'],
+        ['name' => 'Enrollment System', 'route' => 'https://sis.occph.com/login', 'target' => '_blank'],
       ]
     ],
   ]
@@ -111,7 +111,8 @@
               </button>
               <li x-cloak x-show="isExpanded" x-collapse class="flex flex-col gap-2 mt-2">
                 @foreach ($item['subitems'] as $subitem)
-                  <a href="{{ $subitem['route'] }}" class="w-full font-medium focus:underline">
+                  <a href="{{ $subitem['route'] }}" target="{{ $subitem['target'] }}"
+                    class="w-full font-medium focus:underline">
                     {{ $subitem['name'] }}
                   </a>
                 @endforeach
@@ -154,7 +155,7 @@
                   class="absolute min-w-[280px] left-1/2 top-full border border-gray-300 -translate-x-1/2 mt-2 bg-white shadow-2xl p-6 z-50 space-y-4"
                   x-show="open" x-transition.origin.top.duration.200ms x-cloak>
                   @foreach ($item['subitems'] as $subitem)
-                    <a href="{{ $subitem['route'] }}"
+                    <a href="{{ $subitem['route'] }}" target="{{ $subitem['target'] }}"
                       class="hover:text-blue-700 font-medium transition-colors flex items-center gap-2">
                       @if (isset($subitem['image']))
                         <img src="{{ $subitem['image'] }}" class="size-10 object-contain shrink-0">

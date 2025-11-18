@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use App\Models\Sdg;
+use Hashids\Hashids;
 use Illuminate\Http\Request;
 
 class WebController extends Controller
@@ -53,9 +54,18 @@ class WebController extends Controller
         return view('pages.web.news.index', compact('news', 'count', 'search', 'images'));
     }
 
-    public function article($id)
+    public function article($hashedId)
     {
-        $article = News::where('image', $id)
+        $hashids = new Hashids(config('app.key'), 36);
+        $ids = $hashids->decode($hashedId);
+
+        if (empty($ids)) {
+            abort(404);
+        }
+
+        $id = $ids[0];
+
+        $article = News::where('id', $id)
             ->with('sdg')
             ->firstOrFail();
 

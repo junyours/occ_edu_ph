@@ -11,46 +11,46 @@
     <div class="flex-1"></div>
     <div class="flex-1 [clip-path:polygon(50%_0%,100%_0%,100%_100%,0%_100%)]">
       <div x-data="{            
-                // Sets the time between each slides in milliseconds
-                autoplayIntervalTime: 3000,
-                slides: [
-                  @foreach ($images as $image)
-                    { image: 'https://lh3.googleusercontent.com/d/{{ $image }}' },
-                  @endforeach
-                  ],            
-                currentSlideIndex: 1,
-                isPaused: false,
-                autoplayInterval: null,
-                previous() {                
-                    if (this.currentSlideIndex > 1) {                    
-                        this.currentSlideIndex = this.currentSlideIndex - 1                
-                    } else {   
-                        // If it's the first slide, go to the last slide           
-                        this.currentSlideIndex = this.slides.length                
-                    }            
-                },            
-                next() {                
-                    if (this.currentSlideIndex < this.slides.length) {                    
-                        this.currentSlideIndex = this.currentSlideIndex + 1                
-                    } else {                 
-                        // If it's the last slide, go to the first slide    
-                        this.currentSlideIndex = 1                
-                    }            
-                },    
-                autoplay() {
-                    this.autoplayInterval = setInterval(() => {
-                        if (! this.isPaused) {
-                            this.next()
-                        }
-                    }, this.autoplayIntervalTime)
-                },
-                // Updates interval time   
-                setAutoplayInterval(newIntervalTime) {
-                    clearInterval(this.autoplayInterval)
-                    this.autoplayIntervalTime = newIntervalTime
-                    this.autoplay()
-                },    
-            }" x-init="autoplay" class="relative size-full">
+                  // Sets the time between each slides in milliseconds
+                  autoplayIntervalTime: 3000,
+                  slides: [
+                    @foreach ($images as $image)
+                      { image: 'https://lh3.googleusercontent.com/d/{{ $image }}' },
+                    @endforeach
+                    ],            
+                  currentSlideIndex: 1,
+                  isPaused: false,
+                  autoplayInterval: null,
+                  previous() {                
+                      if (this.currentSlideIndex > 1) {                    
+                          this.currentSlideIndex = this.currentSlideIndex - 1                
+                      } else {   
+                          // If it's the first slide, go to the last slide           
+                          this.currentSlideIndex = this.slides.length                
+                      }            
+                  },            
+                  next() {                
+                      if (this.currentSlideIndex < this.slides.length) {                    
+                          this.currentSlideIndex = this.currentSlideIndex + 1                
+                      } else {                 
+                          // If it's the last slide, go to the first slide    
+                          this.currentSlideIndex = 1                
+                      }            
+                  },    
+                  autoplay() {
+                      this.autoplayInterval = setInterval(() => {
+                          if (! this.isPaused) {
+                              this.next()
+                          }
+                      }, this.autoplayIntervalTime)
+                  },
+                  // Updates interval time   
+                  setAutoplayInterval(newIntervalTime) {
+                      clearInterval(this.autoplayInterval)
+                      this.autoplayIntervalTime = newIntervalTime
+                      this.autoplay()
+                  },    
+              }" x-init="autoplay" class="relative size-full">
         <template x-for="(slide, index) in slides">
           <div x-cloak x-show="currentSlideIndex == index + 1" class="absolute inset-0"
             x-transition.opacity.duration.1000ms>
@@ -80,6 +80,10 @@
     </div>
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
       @foreach ($news as $item)
+        @php
+          $hashids = new Hashids\Hashids(config('app.key'), 36);
+          $hashedId = $hashids->encode($item->id);
+        @endphp
         <div x-data="{ shown: false }" x-intersect:enter="shown = true" x-intersect:leave="shown = false"
           class="flex flex-col shadow-2xl border border-slate-100 transform transition duration-800 ease-out"
           :class="shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
@@ -107,7 +111,7 @@
               <h1 class="text-xl font-semibold line-clamp-1 md:line-clamp-2">{{ $item->title }}</h1>
               <p class="text-gray-600 line-clamp-2 md:line-clamp-3 text-sm">{{ $item->description }}</p>
             </div>
-            <a href="{{ route('news.article', ['id' => $item->image]) }}" class="w-fit">
+            <a href="{{ route('news.article', $hashedId) }}" class="w-fit">
               <button type="button"
                 class="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap border border-slate-800 px-5.5 py-3.5 tracking-wide transition-colors text-center cursor-pointer">
                 <span class="relative z-10 transition-colors duration-300 group-hover:text-white">

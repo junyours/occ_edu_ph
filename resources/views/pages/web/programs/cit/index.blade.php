@@ -57,7 +57,7 @@
       </div>
     </div>
     <div class="flex-1">
-      <img src="{{ asset('images/departments/cit/flyers/1.jpg') }}" class="object-contain">
+      <img src="{{ asset('images/departments/cit/flyers/1.png') }}" class="object-contain">
     </div>
   </div>
 @endsection
