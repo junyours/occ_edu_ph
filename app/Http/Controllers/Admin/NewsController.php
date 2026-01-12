@@ -9,6 +9,7 @@ use App\Models\Sdg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
+use Inertia\Inertia;
 
 class NewsController extends Controller
 {
@@ -16,32 +17,31 @@ class NewsController extends Controller
     {
         $search = $request->input('search');
 
+        $options = Sdg::query()->select('id as value', 'name as label')->get();
+
         $news = News::with('sdg')
             ->when($search, function ($query, $search) {
                 $query->where('title', 'like', "%{$search}%");
             })
             ->orderByDesc('date')
-            ->get();
+            ->paginate(10);
 
-        return view('pages.app.news.index', compact('news', 'search'));
-    }
-
-    public function create()
-    {
-        $options = Sdg::query()->select('id', 'name as label')->get();
-
-        return view('pages.app.news.create', compact('options'));
+        return Inertia::render('app/news', [
+            'search' => $search,
+            'options' => $options,
+            'news' => $news
+        ]);
     }
 
     public function add(Request $request)
     {
         $accessToken = $this->token();
 
-        $request->validate([
+        $data = $request->validate([
             'sdg' => ['required', 'array', 'min:1'],
             'image' => ['required', 'mimes:jpeg,jpg,png'],
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required'],
+            'title' => ['required', 'string'],
+            'description' => ['required', 'string'],
             'date' => ['required', 'date'],
         ]);
 
@@ -74,43 +74,33 @@ class NewsController extends Controller
 
             $news = News::create([
                 'image' => $fileId,
-                'title' => $request->title,
-                'description' => $request->description,
-                'date' => Carbon::parse($request->date)
+                'title' => $data['title'],
+                'description' => $data['description'],
+                'date' => Carbon::parse($data['date'])
                     ->timezone('Asia/Manila')
                     ->toDateString(),
             ]);
 
-            foreach ($request->sdg as $sdgId) {
+            foreach ($data['sdg'] as $sdg) {
                 NewsSdg::create([
                     'news_id' => $news->id,
-                    'sdg_id' => $sdgId,
+                    'sdg_id' => $sdg['value'],
                 ]);
             }
-
-            return redirect()->back()->with('success', 'News added successfully!');
         }
     }
 
-    public function edit($id)
-    {
-        $news = News::with('sdg')->findOrFail($id);
-        $options = Sdg::query()->select('id', 'name as label')->get();
-
-        return view('pages.app.news.edit', compact('news', 'options'));
-    }
-
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $accessToken = $this->token();
 
-        $news = News::findOrFail($id);
+        $news = News::findOrFail($request->input('id'));
 
-        $request->validate([
+        $data = $request->validate([
             'sdg' => ['sometimes', 'array', 'min:1'],
             'image' => ['nullable', 'mimes:jpeg,jpg,png'],
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required'],
+            'title' => ['required', 'string'],
+            'description' => ['required', 'string'],
             'date' => ['required', 'date'],
         ]);
 
@@ -152,9 +142,9 @@ class NewsController extends Controller
 
         $news->update([
             'image' => $fileId,
-            'title' => $request->title,
-            'description' => $request->description,
-            'date' => \Carbon\Carbon::parse($request->date)
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'date' => \Carbon\Carbon::parse($data['date'])
                 ->timezone('Asia/Manila')
                 ->toDateString(),
         ]);
@@ -162,20 +152,18 @@ class NewsController extends Controller
         if ($request->filled('sdg')) {
             NewsSdg::where('news_id', $news->id)->delete();
 
-            foreach ($request->sdg as $sdgId) {
+            foreach ($data['sdg'] as $sdg) {
                 NewsSdg::create([
                     'news_id' => $news->id,
-                    'sdg_id' => $sdgId,
+                    'sdg_id' => $sdg['value'],
                 ]);
             }
         }
-
-        return redirect()->back()->with('success', 'News updated successfully!');
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $news = News::findOrFail($id);
+        $news = News::findOrFail($request->input('id'));
         $accessToken = $this->token();
 
         Http::withToken($accessToken)->delete("https://www.googleapis.com/drive/v3/files/{$news->image}");
@@ -183,9 +171,5 @@ class NewsController extends Controller
         NewsSdg::where('news_id', $news->id)->delete();
 
         $news->delete();
-
-        return redirect()->back()->with('success', 'News deleted successfully!');
-        ;
     }
-
 }

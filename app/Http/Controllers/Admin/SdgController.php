@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sdg;
-use Http;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Inertia\Inertia;
 
 class SdgController extends Controller
 {
@@ -16,23 +17,21 @@ class SdgController extends Controller
         $sdgs = Sdg::when($search, function ($query, $search) {
             $query->where('name', 'like', "%{$search}%");
         })
-            ->get();
+            ->paginate(10);
 
-        return view('pages.app.sdg.index', compact('sdgs', 'search'));
-    }
-
-    public function create()
-    {
-        return view('pages.app.sdg.create');
+        return Inertia::render('app/sdg', [
+            'search' => $search,
+            'sdgs' => $sdgs
+        ]);
     }
 
     public function add(Request $request)
     {
         $accessToken = $this->token();
 
-        $request->validate([
-            'image' => ['required', 'mimes:jpeg,jpg,png', 'max:2048'],
-            'name' => ['required'],
+        $data = $request->validate([
+            'image' => ['required', 'mimes:jpeg,jpg,png'],
+            'name' => ['required', 'string'],
         ]);
 
         $folderId = $this->getOrCreateFolder($accessToken, 'SDG', config('services.google.folder_id'));
@@ -64,36 +63,27 @@ class SdgController extends Controller
 
             Sdg::create([
                 'image' => $fileId,
-                'name' => $request->name,
+                'name' => $data['name'],
             ]);
-
-            return redirect()->back()->with('success', 'News added successfully!');
         }
     }
 
-    public function edit($id)
+    public function update(Request $request)
     {
-        $sdg = Sdg::findOrFail($id);
-
-        return view('pages.app.sdg.edit', compact('sdg'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $sdg = Sdg::findOrFail($id);
+        $sdg = Sdg::findOrFail($request->input('id'));
         $accessToken = $this->token();
 
-        $request->validate([
-            'name' => ['required'],
+        $data = $request->validate([
+            'name' => ['required', 'string'],
         ]);
 
         $sdg->update([
-            'name' => $request->name,
+            'name' => $data['name'],
         ]);
 
         if ($request->hasFile('image')) {
             $request->validate([
-                'image' => ['mimes:jpeg,jpg,png', 'max:2048']
+                'image' => ['mimes:jpeg,jpg,png']
             ]);
 
             Http::withToken($accessToken)->delete("https://www.googleapis.com/drive/v3/files/{$sdg->image}");
@@ -130,19 +120,16 @@ class SdgController extends Controller
                 ]);
             }
         }
-
-        return redirect()->back()->with('success', 'News updated successfully!');
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $sdg = Sdg::findOrFail($id);
+        $sdg = Sdg::findOrFail($request->input('id'));
+
         $accessToken = $this->token();
 
         Http::withToken($accessToken)->delete("https://www.googleapis.com/drive/v3/files/{$sdg->image}");
 
         $sdg->delete();
-
-        return redirect()->back()->with('success', 'News deleted successfully!');
     }
 }

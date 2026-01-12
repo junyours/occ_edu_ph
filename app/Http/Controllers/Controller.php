@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Http;
+use Illuminate\Support\Facades\Http;
 
 abstract class Controller
 {
