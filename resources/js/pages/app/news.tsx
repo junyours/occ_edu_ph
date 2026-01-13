@@ -130,7 +130,7 @@ export default function News() {
             const currentData = {
                 id: news.id,
                 title: news.title,
-                description: news.title,
+                description: news.description,
                 date: news.date ? new Date(news.date) : null,
                 image: null,
                 sdg: news.sdg.map((s) => ({
@@ -258,14 +258,18 @@ export default function News() {
                                     </div>
                                 </TableCell>
                                 <TableCell>{news.title}</TableCell>
-                                <TableCell className="space-x-1.5">
+                                <TableCell className="flex flex-wrap gap-1">
                                     {news.sdg.map((sdg) => (
-                                        <Badge key={sdg.id} variant="secondary">
+                                        <Badge
+                                            key={sdg.id}
+                                            variant="secondary"
+                                            className="uppercase"
+                                        >
                                             {sdg.name}
                                         </Badge>
                                     ))}
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="whitespace-nowrap">
                                     {news.date
                                         ? new Date(
                                               news.date
