@@ -30,11 +30,10 @@ import { debounce } from "lodash";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Pencil, Plus, Trash } from "lucide-react";
+import { Loader2, MoreHorizontal, Pencil, Plus, Trash } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
     Sheet,
-    SheetClose,
     SheetContent,
     SheetFooter,
     SheetHeader,
@@ -42,6 +41,14 @@ import {
 } from "@/components/ui/sheet";
 import { Label } from "@/components/ui/label";
 import InputError from "@/components/input-error";
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface Sdg {
     id: number | null;
@@ -68,23 +75,39 @@ export default function SDG() {
         });
     const [open, setOpen] = useState(false);
     const [edit, setEdit] = useState(false);
+    const [initialData, setInitialData] = useState<Sdg>();
+    const [showConfirmClose, setShowConfirmClose] = useState(false);
+    const [showDelete, setShowDelete] = useState<{
+        id: number | null;
+        name: string;
+        show: boolean;
+    }>({
+        id: null,
+        name: "",
+        show: false,
+    });
+    const [loadingDelete, setLoadingDelete] = useState(false);
 
     const handleOpen = (edit = false, sdg: Sdg | null = null) => {
         clearErrors();
         setEdit(edit);
 
         if (edit && sdg) {
-            setData({
+            const currentData = {
                 id: sdg.id,
                 name: sdg.name,
                 image: null,
-            });
+            };
+            setData(currentData);
+            setInitialData(currentData);
         } else {
-            setData({
+            const newData = {
                 id: null,
                 name: "",
                 image: null,
-            });
+            };
+            setData(newData);
+            setInitialData(newData);
         }
 
         setOpen(!open);
@@ -100,6 +123,10 @@ export default function SDG() {
             }
         );
     }, 1000);
+
+    const hasUnsavedChanges = () => {
+        return JSON.stringify(data) !== JSON.stringify(initialData);
+    };
 
     const handleAdd = () => {
         clearErrors();
@@ -125,14 +152,23 @@ export default function SDG() {
         });
     };
 
-    const handleDelete = (id: number | null) => {
+    const handleDelete = () => {
+        setLoadingDelete(true);
         clearErrors();
         router.post(
             "/admin/sdg/delete",
-            { id },
+            { id: showDelete.id },
             {
                 onSuccess: () => {
                     toast.success("SDG deleted successfully.");
+                },
+                onFinish: () => {
+                    setLoadingDelete(false);
+                    setShowDelete({
+                        id: null,
+                        name: "",
+                        show: false,
+                    });
                 },
                 preserveState: true,
                 preserveScroll: true,
@@ -205,7 +241,11 @@ export default function SDG() {
                                             </DropdownMenuItem>
                                             <DropdownMenuItem
                                                 onClick={() =>
-                                                    handleDelete(sdg.id)
+                                                    setShowDelete({
+                                                        id: sdg.id,
+                                                        name: sdg.name,
+                                                        show: true,
+                                                    })
                                                 }
                                                 className="text-destructive"
                                             >
@@ -290,9 +330,13 @@ export default function SDG() {
 
             <Sheet
                 open={open}
-                onOpenChange={() => {
+                onOpenChange={(val) => {
                     if (!processing) {
-                        handleOpen();
+                        if (!val && hasUnsavedChanges()) {
+                            setShowConfirmClose(true);
+                        } else {
+                            setOpen(val);
+                        }
                     }
                 }}
             >
@@ -302,7 +346,7 @@ export default function SDG() {
                     </SheetHeader>
                     <div className="flex-1 overflow-y-auto space-y-4 p-2">
                         <div className="grid w-full max-w-sm items-center gap-2">
-                            <Label htmlFor="image">Image</Label>
+                            <Label>Image</Label>
                             <Input
                                 onChange={(e) => {
                                     const file = e.target.files?.[0] ?? null;
@@ -310,35 +354,120 @@ export default function SDG() {
                                 }}
                                 accept=".jpg,.jpeg,.png"
                                 type="file"
-                                id="image"
                             />
                             <InputError message={errors.image} />
                         </div>
                         <div className="grid w-full max-w-sm items-center gap-2">
-                            <Label htmlFor="name">Name</Label>
+                            <Label>Name</Label>
                             <Input
                                 value={data.name}
                                 onChange={(e) =>
                                     setData("name", e.target.value)
                                 }
-                                id="name"
                             />
                             <InputError message={errors.name} />
                         </div>
                     </div>
                     <SheetFooter>
-                        <SheetClose disabled={processing} asChild>
-                            <Button variant="ghost">Cancel</Button>
-                        </SheetClose>
+                        <Button
+                            onClick={() => {
+                                if (!processing) {
+                                    if (hasUnsavedChanges()) {
+                                        setShowConfirmClose(true);
+                                    } else {
+                                        setOpen(false);
+                                    }
+                                }
+                            }}
+                            variant="ghost"
+                            disabled={processing}
+                        >
+                            Cancel
+                        </Button>
                         <Button
                             onClick={edit ? handleUpdate : handleAdd}
                             disabled={processing}
                         >
-                            {edit ? "Update" : "Save"}
+                            {processing && <Loader2 className="animate-spin" />}
+                            {edit
+                                ? processing
+                                    ? "Updating"
+                                    : "Update"
+                                : processing
+                                ? "Saving"
+                                : "Save"}
                         </Button>
                     </SheetFooter>
                 </SheetContent>
             </Sheet>
+
+            <AlertDialog open={showConfirmClose}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Discard changes?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            You have unsaved changes. Are you sure you want to
+                            cancel?
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <Button
+                            variant="ghost"
+                            onClick={() => setShowConfirmClose(false)}
+                        >
+                            No, keep editing
+                        </Button>
+                        <Button
+                            variant="destructive"
+                            onClick={() => {
+                                setShowConfirmClose(false);
+                                setOpen(false);
+                            }}
+                        >
+                            Yes, discard
+                        </Button>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog open={showDelete.show}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle className="uppercase">
+                            {showDelete.name}
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Are you sure you want to permanently delete? This
+                            action cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <Button
+                            variant="ghost"
+                            onClick={() =>
+                                setShowDelete({
+                                    id: null,
+                                    name: "",
+                                    show: false,
+                                })
+                            }
+                            disabled={loadingDelete}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            variant="destructive"
+                            onClick={handleDelete}
+                            disabled={loadingDelete}
+                        >
+                            {loadingDelete && (
+                                <Loader2 className="animate-spin" />
+                            )}
+                            {loadingDelete ? "Deleting" : "Delete"}
+                        </Button>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </>
     );
 }

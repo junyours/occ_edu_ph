@@ -11,6 +11,7 @@ import { PageProps } from "@/types";
 import { Input } from "@/components/ui/input";
 import { debounce } from "lodash";
 import { MoveRight } from "lucide-react";
+import { motion, Variants } from "framer-motion";
 
 interface Image {
     image: string;
@@ -52,6 +53,22 @@ export default function News() {
             }
         );
     }, 1000);
+
+    const cardVariants: Variants = {
+        hidden: {
+            opacity: 0,
+            y: 40,
+        },
+        visible: (index: number) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.6,
+                ease: "easeOut",
+                delay: index * 0.15,
+            },
+        }),
+    };
 
     return (
         <>
@@ -114,10 +131,15 @@ export default function News() {
                     />
                 </div>
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                    {news.map((item) => (
-                        <div
+                    {news.map((item, index) => (
+                        <motion.div
                             key={item.id}
-                            className="flex flex-col shadow-2xl border border-slate-100"
+                            custom={index}
+                            variants={cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                            className="flex flex-col shadow-2xl border border-slate-100 will-change-transform"
                         >
                             <div className="group h-44 md:h-56 overflow-hidden relative">
                                 <img
@@ -176,7 +198,7 @@ export default function News() {
                                     </button>
                                 </Link>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>

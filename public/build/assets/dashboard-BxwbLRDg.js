@@ -1,1 +1,0 @@
-import{j as r}from"./app-svE3K3mg.js";import{A as t}from"./app-layout-CavMusJa.js";import"./index-B_yQlDJ4.js";import"./button-Bu5ybxI9.js";import"./utils-CDN07tui.js";import"./createLucideIcon-DgzF8neN.js";import"./input-Xs3CdBrf.js";function i(){return r.jsx("div",{children:"dashboard"})}i.layout=o=>r.jsx(t,{children:o});export{i as default};

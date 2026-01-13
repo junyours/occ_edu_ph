@@ -26,12 +26,12 @@ type Faculty = {
 const items: Faculty[] = [
     {
         name: "Ruben Madriaga, LPT, MIT",
-        position: "College Dean/Research Coordinator",
+        position: "College Dean",
         image: Faculty9,
     },
     {
         name: "Gaudencio Iyo Jr., MIT",
-        position: "Faculty/System Administrator",
+        position: "Faculty/CICT Director",
         image: Faculty6,
     },
     {

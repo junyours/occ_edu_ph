@@ -30,7 +30,7 @@ export default function SDG() {
                 </div>
                 <div className="flex-1"></div>
                 <div className="flex-1 flex items-center justify-center">
-                    <div className="size-28 md:size-60">
+                    <div className="size-24 md:size-60">
                         <img
                             src={BgSDG}
                             className="size-fit object-contain animate-spin [animation-duration:16s]"

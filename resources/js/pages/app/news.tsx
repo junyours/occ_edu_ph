@@ -4,7 +4,7 @@ import AppLayout from "@/layouts/app-layout";
 import { PageProps } from "@/types";
 import { router, useForm, usePage } from "@inertiajs/react";
 import { debounce } from "lodash";
-import { MoreHorizontal, Pencil, Plus, Trash } from "lucide-react";
+import { Loader2, MoreHorizontal, Pencil, Plus, Trash } from "lucide-react";
 import { ReactPortal, useState } from "react";
 import { toast } from "sonner";
 import {
@@ -34,7 +34,6 @@ import {
 import { cn } from "@/lib/utils";
 import {
     Sheet,
-    SheetClose,
     SheetContent,
     SheetFooter,
     SheetHeader,
@@ -46,6 +45,14 @@ import { Badge } from "@/components/ui/badge";
 import MultiSelect from "@/components/multi-select";
 import { Textarea } from "@/components/ui/textarea";
 import DatePicker from "@/components/date-picker";
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface Option {
     value: string;
@@ -95,13 +102,32 @@ export default function News() {
     });
     const [open, setOpen] = useState(false);
     const [edit, setEdit] = useState(false);
+    const [initialData, setInitialData] = useState<{
+        id: number | null;
+        title: string;
+        description: string;
+        date: Date | null;
+        image: File | null;
+        sdg: Option[];
+    }>();
+    const [showConfirmClose, setShowConfirmClose] = useState(false);
+    const [showDelete, setShowDelete] = useState<{
+        id: number | null;
+        title: string;
+        show: boolean;
+    }>({
+        id: null,
+        title: "",
+        show: false,
+    });
+    const [loadingDelete, setLoadingDelete] = useState(false);
 
     const handleOpen = (edit = false, news: News | null = null) => {
         clearErrors();
         setEdit(edit);
 
         if (edit && news) {
-            setData({
+            const currentData = {
                 id: news.id,
                 title: news.title,
                 description: news.title,
@@ -111,16 +137,20 @@ export default function News() {
                     value: String(s.id),
                     label: s.name,
                 })),
-            });
+            };
+            setData(currentData);
+            setInitialData(currentData);
         } else {
-            setData({
+            const newData = {
                 id: null,
                 title: "",
                 description: "",
                 date: null,
                 image: null,
                 sdg: [],
-            });
+            };
+            setData(newData);
+            setInitialData(newData);
         }
 
         setOpen(!open);
@@ -136,6 +166,10 @@ export default function News() {
             }
         );
     }, 1000);
+
+    const hasUnsavedChanges = () => {
+        return JSON.stringify(data) !== JSON.stringify(initialData);
+    };
 
     const handleAdd = () => {
         clearErrors();
@@ -161,14 +195,23 @@ export default function News() {
         });
     };
 
-    const handleDelete = (id: number | null) => {
+    const handleDelete = () => {
+        setLoadingDelete(true);
         clearErrors();
         router.post(
             "/admin/news/delete",
-            { id },
+            { id: showDelete.id },
             {
                 onSuccess: () => {
                     toast.success("News deleted successfully.");
+                },
+                onFinish: () => {
+                    setLoadingDelete(false);
+                    setShowDelete({
+                        id: null,
+                        title: "",
+                        show: false,
+                    });
                 },
                 preserveState: true,
                 preserveScroll: true,
@@ -259,7 +302,11 @@ export default function News() {
                                             </DropdownMenuItem>
                                             <DropdownMenuItem
                                                 onClick={() =>
-                                                    handleDelete(news.id)
+                                                    setShowDelete({
+                                                        id: news.id,
+                                                        title: news.title,
+                                                        show: true,
+                                                    })
                                                 }
                                                 className="text-destructive"
                                             >
@@ -344,9 +391,13 @@ export default function News() {
 
             <Sheet
                 open={open}
-                onOpenChange={() => {
+                onOpenChange={(val) => {
                     if (!processing) {
-                        handleOpen();
+                        if (!val && hasUnsavedChanges()) {
+                            setShowConfirmClose(true);
+                        } else {
+                            setOpen(val);
+                        }
                     }
                 }}
             >
@@ -356,7 +407,7 @@ export default function News() {
                     </SheetHeader>
                     <div className="flex-1 overflow-y-auto space-y-4 p-2">
                         <div className="grid w-full max-w-sm items-center gap-2">
-                            <Label htmlFor="sdg">SDG's</Label>
+                            <Label>SDG's</Label>
                             <MultiSelect
                                 options={options}
                                 selected={data.sdg}
@@ -365,7 +416,7 @@ export default function News() {
                             <InputError message={errors.sdg} />
                         </div>
                         <div className="grid w-full max-w-sm items-center gap-2">
-                            <Label htmlFor="image">Image</Label>
+                            <Label>Image</Label>
                             <Input
                                 onChange={(e) => {
                                     const file = e.target.files?.[0] ?? null;
@@ -373,29 +424,26 @@ export default function News() {
                                 }}
                                 accept=".jpg,.jpeg,.png"
                                 type="file"
-                                id="image"
                             />
                             <InputError message={errors.image} />
                         </div>
                         <div className="grid w-full max-w-sm items-center gap-2">
-                            <Label htmlFor="title">Title</Label>
+                            <Label>Title</Label>
                             <Input
                                 value={data.title}
                                 onChange={(e) =>
                                     setData("title", e.target.value)
                                 }
-                                id="title"
                             />
                             <InputError message={errors.title} />
                         </div>
                         <div className="grid w-full max-w-sm items-center gap-2">
-                            <Label htmlFor="description">Description</Label>
+                            <Label>Description</Label>
                             <Textarea
                                 value={data.description}
                                 onChange={(e) =>
                                     setData("description", e.target.value)
                                 }
-                                id="description"
                             />
                             <InputError message={errors.description} />
                         </div>
@@ -411,18 +459,103 @@ export default function News() {
                         </div>
                     </div>
                     <SheetFooter>
-                        <SheetClose disabled={processing} asChild>
-                            <Button variant="ghost">Cancel</Button>
-                        </SheetClose>
+                        <Button
+                            onClick={() => {
+                                if (!processing) {
+                                    if (hasUnsavedChanges()) {
+                                        setShowConfirmClose(true);
+                                    } else {
+                                        setOpen(false);
+                                    }
+                                }
+                            }}
+                            variant="ghost"
+                            disabled={processing}
+                        >
+                            Cancel
+                        </Button>
                         <Button
                             onClick={edit ? handleUpdate : handleAdd}
                             disabled={processing}
                         >
-                            {edit ? "Update" : "Save"}
+                            {processing && <Loader2 className="animate-spin" />}
+                            {edit
+                                ? processing
+                                    ? "Updating"
+                                    : "Update"
+                                : processing
+                                ? "Saving"
+                                : "Save"}
                         </Button>
                     </SheetFooter>
                 </SheetContent>
             </Sheet>
+
+            <AlertDialog open={showConfirmClose}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Discard changes?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            You have unsaved changes. Are you sure you want to
+                            cancel?
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <Button
+                            variant="ghost"
+                            onClick={() => setShowConfirmClose(false)}
+                        >
+                            No, keep editing
+                        </Button>
+                        <Button
+                            variant="destructive"
+                            onClick={() => {
+                                setShowConfirmClose(false);
+                                setOpen(false);
+                            }}
+                        >
+                            Yes, discard
+                        </Button>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog open={showDelete.show}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>{showDelete.title}</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Are you sure you want to permanently delete? This
+                            action cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <Button
+                            variant="ghost"
+                            onClick={() =>
+                                setShowDelete({
+                                    id: null,
+                                    title: "",
+                                    show: false,
+                                })
+                            }
+                            disabled={loadingDelete}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            variant="destructive"
+                            onClick={handleDelete}
+                            disabled={loadingDelete}
+                        >
+                            {loadingDelete && (
+                                <Loader2 className="animate-spin" />
+                            )}
+                            {loadingDelete ? "Deleting" : "Delete"}
+                        </Button>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </>
     );
 }

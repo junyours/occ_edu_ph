@@ -16,7 +16,7 @@ class HomeController extends Controller
 
         $news = News::with('sdg')
             ->orderByDesc('date')
-            ->limit(3)
+            ->limit(6)
             ->get()
             ->map(function ($item) use ($hashids) {
                 $item->hash_id = $hashids->encode($item->id);

@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@inertiajs/react";
 import InputError from "@/components/input-error";
+import { Loader2 } from "lucide-react";
 
 export default function Login() {
     const { data, setData, post, processing, errors, clearErrors } = useForm({
@@ -45,7 +46,8 @@ export default function Login() {
             </CardContent>
             <CardFooter>
                 <Button className="w-full" disabled={processing}>
-                    Log in
+                    {processing && <Loader2 className="animate-spin" />}
+                    {processing ? "Logging in" : "Log in"}
                 </Button>
             </CardFooter>
         </form>
