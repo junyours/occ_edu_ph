@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { router, usePage } from "@inertiajs/react";
 import { PageProps } from "@/types";
+import { SDG_COLORS } from "@/components/others";
 
 interface Sdg {
     id: number;
@@ -37,26 +38,6 @@ interface Props extends PageProps {
     years: number[];
     year: number;
 }
-
-const SDG_COLORS: Record<string, string> = {
-    "sdg-1": "#E5243B",
-    "sdg-2": "#DDA63A",
-    "sdg-3": "#4C9F38",
-    "sdg-4": "#C5192D",
-    "sdg-5": "#FF3A21",
-    "sdg-6": "#26BDE2",
-    "sdg-7": "#FCC30B",
-    "sdg-8": "#A21942",
-    "sdg-9": "#FD6925",
-    "sdg-10": "#DD1367",
-    "sdg-11": "#FD9D24",
-    "sdg-12": "#BF8B2E",
-    "sdg-13": "#3F7E44",
-    "sdg-14": "#0A97D9",
-    "sdg-15": "#56C02B",
-    "sdg-16": "#00689D",
-    "sdg-17": "#19486A",
-};
 
 export default function Dashboard() {
     const { chartData, sdgs, years, year } = usePage<Props>().props;
@@ -110,14 +91,18 @@ export default function Dashboard() {
                             tickFormatter={(v) => v.slice(0, 3)}
                         />
                         <ChartTooltip content={<ChartTooltipContent />} />
-                        <ChartLegend content={<ChartLegendContent />} />
+                        <ChartLegend
+                            content={
+                                <ChartLegendContent className="flex flex-wrap gap-4" />
+                            }
+                        />
                         {sdgs.map((sdg) => (
                             <Bar
                                 key={sdg.id}
                                 dataKey={sdg.name}
                                 stackId="a"
-                                radius={[4, 4, 0, 0]}
                                 fill={SDG_COLORS[sdg.name]}
+                                radius={[4, 4, 4, 4]}
                             />
                         ))}
                     </BarChart>

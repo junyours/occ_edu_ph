@@ -53,6 +53,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { SDG_COLORS } from "@/components/others";
 
 interface Option {
     value: string;
@@ -83,33 +84,29 @@ interface Props extends PageProps {
     };
 }
 
+interface NewsProps {
+    id: number | null;
+    title: string;
+    description: string;
+    date: Date | null;
+    image: File | null;
+    sdg: Option[];
+}
+
 export default function News() {
     const { search, options, news } = usePage<Props>().props;
-    const { data, setData, post, processing, errors, clearErrors } = useForm<{
-        id: number | null;
-        title: string;
-        description: string;
-        date: Date | null;
-        image: File | null;
-        sdg: Option[];
-    }>({
-        id: null,
-        title: "",
-        description: "",
-        date: null,
-        image: null,
-        sdg: [],
-    });
+    const { data, setData, post, processing, errors, clearErrors } =
+        useForm<NewsProps>({
+            id: null,
+            title: "",
+            description: "",
+            date: null,
+            image: null,
+            sdg: [],
+        });
     const [open, setOpen] = useState(false);
     const [edit, setEdit] = useState(false);
-    const [initialData, setInitialData] = useState<{
-        id: number | null;
-        title: string;
-        description: string;
-        date: Date | null;
-        image: File | null;
-        sdg: Option[];
-    }>();
+    const [initialData, setInitialData] = useState<NewsProps>();
     const [showConfirmClose, setShowConfirmClose] = useState(false);
     const [showDelete, setShowDelete] = useState<{
         id: number | null;
@@ -262,8 +259,11 @@ export default function News() {
                                     {news.sdg.map((sdg) => (
                                         <Badge
                                             key={sdg.id}
-                                            variant="secondary"
                                             className="uppercase"
+                                            style={{
+                                                backgroundColor:
+                                                    SDG_COLORS[sdg.name],
+                                            }}
                                         >
                                             {sdg.name}
                                         </Badge>
