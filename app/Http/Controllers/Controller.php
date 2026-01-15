@@ -3,46 +3,86 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Log;
 
 abstract class Controller
 {
     public function token()
     {
-        $client_id = config('services.google.client_id');
-        $client_secret = config('services.google.client_secret');
-        $refresh_token = config('services.google.refresh_token');
+        try {
+            $response = Http::asForm()
+                ->timeout(10)
+                ->post('https://oauth2.googleapis.com/token', [
+                    'client_id' => config('services.google.client_id'),
+                    'client_secret' => config('services.google.client_secret'),
+                    'refresh_token' => config('services.google.refresh_token'),
+                    'grant_type' => 'refresh_token',
+                ]);
 
-        $response = Http::asForm()->post('https://oauth2.googleapis.com/token', [
-            'client_id' => $client_id,
-            'client_secret' => $client_secret,
-            'refresh_token' => $refresh_token,
-            'grant_type' => 'refresh_token',
-        ]);
+            if (!$response->successful()) {
+                return back()->with(
+                    'error',
+                    'Unable to connect to Google services. Please try again.'
+                );
+            }
 
-        if (!$response->successful()) {
-            throw new \Exception('Failed to get Google access token: ' . $response->body());
+            return $response->json()['access_token'];
+
+        } catch (ConnectionException $e) {
+            Log::error('Google token connection error', [
+                'message' => $e->getMessage(),
+            ]);
+
+            return back()->with(
+                'error',
+                'Network error detected. Please check your internet connection.'
+            );
         }
-
-        return $response->json()['access_token'];
     }
 
     public function getOrCreateFolder($accessToken, $folderName, $parentId)
     {
-        $response = Http::withToken($accessToken)->get('https://www.googleapis.com/drive/v3/files', [
-            'q' => "name='{$folderName}' and '{$parentId}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false",
-            'fields' => 'files(id)',
-        ]);
+        try {
+            $response = Http::withToken($accessToken)
+                ->timeout(10)
+                ->get('https://www.googleapis.com/drive/v3/files', [
+                    'q' => "name='{$folderName}' and '{$parentId}' in parents 
+                            and mimeType='application/vnd.google-apps.folder' 
+                            and trashed=false",
+                    'fields' => 'files(id)',
+                ]);
 
-        if ($response->successful() && count($response['files']) > 0) {
-            return $response['files'][0]['id'];
+            if ($response->successful() && count($response['files']) > 0) {
+                return $response['files'][0]['id'];
+            }
+
+            $create = Http::withToken($accessToken)
+                ->timeout(10)
+                ->post('https://www.googleapis.com/drive/v3/files', [
+                    'name' => $folderName,
+                    'mimeType' => 'application/vnd.google-apps.folder',
+                    'parents' => [$parentId],
+                ]);
+
+            if (!$create->successful()) {
+                return back()->with(
+                    'error',
+                    'Failed to create folder. Please try again.'
+                );
+            }
+
+            return $create->json()['id'];
+
+        } catch (ConnectionException $e) {
+            Log::error('Google Drive connection error', [
+                'message' => $e->getMessage(),
+            ]);
+
+            return back()->with(
+                'error',
+                'Slow or no internet connection. Please try again later.'
+            );
         }
-
-        $create = Http::withToken($accessToken)->post('https://www.googleapis.com/drive/v3/files', [
-            'name' => $folderName,
-            'mimeType' => 'application/vnd.google-apps.folder',
-            'parents' => [$parentId],
-        ]);
-
-        return $create->json()['id'];
     }
 }

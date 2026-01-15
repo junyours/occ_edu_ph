@@ -70,7 +70,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
                                     variant="secondary"
                                     className="mr-1 flex items-center"
                                 >
-                                    {s.label}
+                                    {s.label.toUpperCase()}
                                     <button
                                         className="ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2"
                                         onClick={(e) => {
@@ -119,7 +119,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
                                                 : "opacity-0"
                                         )}
                                     />
-                                    {option.label}
+                                    {option.label.toUpperCase()}
                                 </CommandItem>
                             ))}
                         </CommandGroup>

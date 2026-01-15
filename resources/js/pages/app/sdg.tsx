@@ -1,5 +1,5 @@
 import AppLayout from "@/layouts/app-layout";
-import { ReactPortal, useState } from "react";
+import { ReactPortal, useEffect, useState } from "react";
 import {
     Table,
     TableBody,
@@ -66,7 +66,7 @@ interface Props extends PageProps {
 }
 
 export default function SDG() {
-    const { search, sdgs } = usePage<Props>().props;
+    const { search, sdgs, flash } = usePage<Props>().props;
     const { data, setData, post, processing, errors, clearErrors } =
         useForm<Sdg>({
             id: null,
@@ -175,6 +175,10 @@ export default function SDG() {
             }
         );
     };
+
+    useEffect(() => {
+        if (flash.error) toast.error(flash.error);
+    }, [flash]);
 
     return (
         <>
