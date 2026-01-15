@@ -140,7 +140,7 @@ class NewsController extends Controller
             }
         }
 
-        $news->update([
+        $news->query()->update([
             'image' => $fileId,
             'title' => $data['title'],
             'description' => $data['description'],
@@ -150,7 +150,7 @@ class NewsController extends Controller
         ]);
 
         if ($request->filled('sdg')) {
-            NewsSdg::where('news_id', $news->id)->delete();
+            NewsSdg::query()->where('news_id', $news->id)->delete();
 
             foreach ($data['sdg'] as $sdg) {
                 NewsSdg::create([
@@ -168,8 +168,8 @@ class NewsController extends Controller
 
         Http::withToken($accessToken)->delete("https://www.googleapis.com/drive/v3/files/{$news->image}");
 
-        NewsSdg::where('news_id', $news->id)->delete();
+        NewsSdg::query()->where('news_id', $news->id)->delete();
 
-        $news->delete();
+        $news->query()->delete();
     }
 }

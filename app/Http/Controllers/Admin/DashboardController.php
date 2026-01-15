@@ -22,7 +22,7 @@ class DashboardController extends Controller
 
         $year = $request->get('year', $years->first());
 
-        $sdgs = Sdg::select('id', 'name')->get();
+        $sdgs = Sdg::query()->select('id', 'name')->get();
 
         $rawData = News::query()
             ->selectRaw('
