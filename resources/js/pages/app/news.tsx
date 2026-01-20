@@ -5,7 +5,7 @@ import { PageProps } from "@/types";
 import { router, useForm, usePage } from "@inertiajs/react";
 import { debounce } from "lodash";
 import { Loader2, MoreHorizontal, Pencil, Plus, Trash } from "lucide-react";
-import { ReactPortal, useState } from "react";
+import { ReactPortal, useEffect, useState } from "react";
 import { toast } from "sonner";
 import {
     Table,
@@ -94,7 +94,7 @@ interface NewsProps {
 }
 
 export default function News() {
-    const { search, options, news } = usePage<Props>().props;
+    const { search, options, news, flash } = usePage<Props>().props;
     const { data, setData, post, processing, errors, clearErrors } =
         useForm<NewsProps>({
             id: null,
@@ -215,6 +215,10 @@ export default function News() {
             }
         );
     };
+
+    useEffect(() => {
+        if (flash.error) toast.error(flash.error);
+    }, [flash]);
 
     return (
         <>

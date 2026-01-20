@@ -17,7 +17,7 @@ class NewsController extends Controller
     {
         $search = $request->input('search');
 
-        $options = Sdg::query()->select('id as value', 'name as label')->get();
+        $options = Sdg::select('id as value', 'name as label')->get();
 
         $news = News::with('sdg')
             ->when($search, function ($query, $search) {
@@ -140,7 +140,7 @@ class NewsController extends Controller
             }
         }
 
-        $news->query()->update([
+        $news->update([
             'image' => $fileId,
             'title' => $data['title'],
             'description' => $data['description'],
@@ -150,7 +150,7 @@ class NewsController extends Controller
         ]);
 
         if ($request->filled('sdg')) {
-            NewsSdg::query()->where('news_id', $news->id)->delete();
+            NewsSdg::where('news_id', $news->id)->delete();
 
             foreach ($data['sdg'] as $sdg) {
                 NewsSdg::create([
@@ -168,8 +168,8 @@ class NewsController extends Controller
 
         Http::withToken($accessToken)->delete("https://www.googleapis.com/drive/v3/files/{$news->image}");
 
-        NewsSdg::query()->where('news_id', $news->id)->delete();
+        NewsSdg::where('news_id', $news->id)->delete();
 
-        $news->query()->delete();
+        $news->delete();
     }
 }
