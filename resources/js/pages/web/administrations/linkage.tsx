@@ -79,15 +79,15 @@ export default function Linkage() {
                             About
                         </button>
                         <button
-                            onClick={() => setTabs("coordinators")}
+                            onClick={() => setTabs("officers")}
                             className={cn(
                                 "h-10 border-l-2 px-4 text-start font-semibold text-slate-800 uppercase text-sm transition-all",
-                                tabs === "coordinators"
+                                tabs === "officers"
                                     ? "border-blue-800"
                                     : "border-transparent bg-gray-200",
                             )}
                         >
-                            Coordinators
+                            Officers
                         </button>
                         <button
                             onClick={() => setTabs("news")}
@@ -189,10 +189,10 @@ export default function Linkage() {
                             </div>
                         </div>
                     )}
-                    {tabs === "coordinators" && (
+                    {tabs === "officers" && (
                         <div className="h-fit flex-1 p-6 border space-y-8">
                             <h1 className="text-slate-800 text-lg font-semibold border-b border-slate-800 pb-2">
-                                Coordinators
+                                Officers
                             </h1>
                             <h1 className="text-center text-slate-800 text-lg font-semibold uppercase">
                                 Meet Our Team
