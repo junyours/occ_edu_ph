@@ -5,12 +5,14 @@ import Feature from "./sections/feature";
 import VisionMission from "./sections/vision-mission";
 import VisitUs from "./sections/visit-us";
 import News from "./sections/news";
+import Partner from "./sections/partner";
 
 export default function Home() {
     return (
         <div className="space-y-10 md:space-y-20">
             <Hero />
             <Feature />
+            <Partner />
             <VisionMission />
             <News />
             <VisitUs />

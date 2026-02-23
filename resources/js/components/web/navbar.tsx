@@ -106,7 +106,7 @@ const items: Item[] = [
             },
             {
                 name: "International Affairs and Linkages",
-                href: route("home"),
+                href: route("linkage"),
                 target: "_self",
             },
             {

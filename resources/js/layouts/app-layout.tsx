@@ -4,10 +4,18 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
+import { usePage } from "@inertiajs/react";
+import { toast } from "sonner";
 
 export default function AppLayout({ children }: PropsWithChildren) {
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        if (flash.error) toast.error(flash.error);
+    }, [flash]);
+
     return (
         <SidebarProvider>
             <AppSidebar />

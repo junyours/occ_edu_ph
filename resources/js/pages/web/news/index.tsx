@@ -50,7 +50,7 @@ export default function News() {
                 preserveState: true,
                 preserveScroll: true,
                 replace: true,
-            }
+            },
         );
     }, 1000);
 
@@ -72,17 +72,17 @@ export default function News() {
 
     return (
         <>
-            <div className="relative h-56 md:h-96 flex bg-gradient-to-b from-blue-500/70 via-sky-400/60 to-cyan-300/0">
+            <div className="relative h-56 md:h-96 flex">
                 <div className="absolute inset-0 max-w-6xl mx-auto flex px-4 md:px-6">
                     <div className="flex-1 flex items-center">
-                        <h1 className="text-xl md:text-4xl font-extrabold uppercase text-white">
+                        <h1 className="text-xl md:text-4xl font-extrabold uppercase text-slate-800">
                             Latest News & Updates
                         </h1>
                     </div>
                     <div className="flex-1"></div>
                 </div>
                 <div className="flex-1"></div>
-                <div className="flex-1 overflow-hidden [clip-path:polygon(50%_0%,100%_0%,100%_100%,0%_100%)]">
+                <div className="flex-1 overflow-hidden [clip-path:polygon(20%_0%,100%_0%,100%_100%,0%_100%)]">
                     <Carousel
                         opts={{
                             loop: true,
@@ -153,7 +153,7 @@ export default function News() {
                                     <p className="font-medium text-xs bg-white p-1">
                                         {new Date(item.date).toLocaleString(
                                             "en-US",
-                                            { month: "short" }
+                                            { month: "short" },
                                         )}
                                         , {new Date(item.date).getFullYear()}
                                     </p>

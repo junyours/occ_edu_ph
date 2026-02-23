@@ -1,5 +1,5 @@
 import AppLayout from "@/layouts/app-layout";
-import { ReactPortal, useEffect, useState } from "react";
+import { ReactPortal, useState } from "react";
 import {
     Table,
     TableBody,
@@ -66,7 +66,7 @@ interface Props extends PageProps {
 }
 
 export default function SDG() {
-    const { search, sdgs, flash } = usePage<Props>().props;
+    const { search, sdgs } = usePage<Props>().props;
     const { data, setData, post, processing, errors, clearErrors } =
         useForm<Sdg>({
             id: null,
@@ -120,7 +120,7 @@ export default function SDG() {
             {
                 preserveState: true,
                 replace: true,
-            }
+            },
         );
     }, 1000);
 
@@ -172,13 +172,9 @@ export default function SDG() {
                 },
                 preserveState: true,
                 preserveScroll: true,
-            }
+            },
         );
     };
-
-    useEffect(() => {
-        if (flash.error) toast.error(flash.error);
-    }, [flash]);
 
     return (
         <>
@@ -271,7 +267,7 @@ export default function SDG() {
                                     "cursor-default",
                                     sdgs.current_page > 1
                                         ? ""
-                                        : "pointer-events-none opacity-50"
+                                        : "pointer-events-none opacity-50",
                                 )}
                                 onClick={() =>
                                     sdgs.current_page > 1 &&
@@ -281,14 +277,14 @@ export default function SDG() {
                                             page: sdgs.current_page - 1,
                                             search: search ?? "",
                                         },
-                                        { preserveState: true }
+                                        { preserveState: true },
                                     )
                                 }
                             />
                         </PaginationItem>
                         {Array.from(
                             { length: sdgs.last_page },
-                            (_, i) => i + 1
+                            (_, i) => i + 1,
                         ).map((page) => (
                             <PaginationItem key={page}>
                                 <PaginationLink
@@ -298,7 +294,7 @@ export default function SDG() {
                                         router.get(
                                             "/admin/sdg",
                                             { page, search: search ?? "" },
-                                            { preserveState: true }
+                                            { preserveState: true },
                                         );
                                     }}
                                     className="cursor-default"
@@ -313,7 +309,7 @@ export default function SDG() {
                                     "cursor-default",
                                     sdgs.current_page < sdgs.last_page
                                         ? ""
-                                        : "pointer-events-none opacity-50"
+                                        : "pointer-events-none opacity-50",
                                 )}
                                 onClick={() =>
                                     sdgs.current_page < sdgs.last_page &&
@@ -323,7 +319,7 @@ export default function SDG() {
                                             page: sdgs.current_page + 1,
                                             search: search ?? "",
                                         },
-                                        { preserveState: true }
+                                        { preserveState: true },
                                     )
                                 }
                             />
@@ -398,8 +394,8 @@ export default function SDG() {
                                     ? "Updating"
                                     : "Update"
                                 : processing
-                                ? "Saving"
-                                : "Save"}
+                                  ? "Saving"
+                                  : "Save"}
                         </Button>
                     </SheetFooter>
                 </SheetContent>

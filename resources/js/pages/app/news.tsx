@@ -5,7 +5,7 @@ import { PageProps } from "@/types";
 import { router, useForm, usePage } from "@inertiajs/react";
 import { debounce } from "lodash";
 import { Loader2, MoreHorizontal, Pencil, Plus, Trash } from "lucide-react";
-import { ReactPortal, useEffect, useState } from "react";
+import { ReactPortal, useState } from "react";
 import { toast } from "sonner";
 import {
     Table,
@@ -94,7 +94,7 @@ interface NewsProps {
 }
 
 export default function News() {
-    const { search, options, news, flash } = usePage<Props>().props;
+    const { search, options, news } = usePage<Props>().props;
     const { data, setData, post, processing, errors, clearErrors } =
         useForm<NewsProps>({
             id: null,
@@ -160,7 +160,7 @@ export default function News() {
             {
                 preserveState: true,
                 replace: true,
-            }
+            },
         );
     }, 1000);
 
@@ -212,13 +212,9 @@ export default function News() {
                 },
                 preserveState: true,
                 preserveScroll: true,
-            }
+            },
         );
     };
-
-    useEffect(() => {
-        if (flash.error) toast.error(flash.error);
-    }, [flash]);
 
     return (
         <>
@@ -276,7 +272,7 @@ export default function News() {
                                 <TableCell className="whitespace-nowrap">
                                     {news.date
                                         ? new Date(
-                                              news.date
+                                              news.date,
                                           ).toLocaleDateString("en-US", {
                                               year: "numeric",
                                               month: "long",
@@ -336,7 +332,7 @@ export default function News() {
                                     "cursor-default",
                                     news.current_page > 1
                                         ? ""
-                                        : "pointer-events-none opacity-50"
+                                        : "pointer-events-none opacity-50",
                                 )}
                                 onClick={() =>
                                     news.current_page > 1 &&
@@ -346,14 +342,14 @@ export default function News() {
                                             page: news.current_page - 1,
                                             search: search ?? "",
                                         },
-                                        { preserveState: true }
+                                        { preserveState: true },
                                     )
                                 }
                             />
                         </PaginationItem>
                         {Array.from(
                             { length: news.last_page },
-                            (_, i) => i + 1
+                            (_, i) => i + 1,
                         ).map((page) => (
                             <PaginationItem key={page}>
                                 <PaginationLink
@@ -363,7 +359,7 @@ export default function News() {
                                         router.get(
                                             "/admin/news",
                                             { page, search: search ?? "" },
-                                            { preserveState: true }
+                                            { preserveState: true },
                                         );
                                     }}
                                     className="cursor-default"
@@ -378,7 +374,7 @@ export default function News() {
                                     "cursor-default",
                                     news.current_page < news.last_page
                                         ? ""
-                                        : "pointer-events-none opacity-50"
+                                        : "pointer-events-none opacity-50",
                                 )}
                                 onClick={() =>
                                     news.current_page < news.last_page &&
@@ -388,7 +384,7 @@ export default function News() {
                                             page: news.current_page + 1,
                                             search: search ?? "",
                                         },
-                                        { preserveState: true }
+                                        { preserveState: true },
                                     )
                                 }
                             />
@@ -492,8 +488,8 @@ export default function News() {
                                     ? "Updating"
                                     : "Update"
                                 : processing
-                                ? "Saving"
-                                : "Save"}
+                                  ? "Saving"
+                                  : "Save"}
                         </Button>
                     </SheetFooter>
                 </SheetContent>
