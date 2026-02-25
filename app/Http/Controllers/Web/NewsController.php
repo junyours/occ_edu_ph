@@ -56,8 +56,17 @@ class NewsController extends Controller
             ->with('sdg')
             ->firstOrFail();
 
+        $news = News::orderByDesc('date')
+            ->limit(8)
+            ->get()
+            ->map(function ($item) use ($hashids) {
+                $item->hash_id = $hashids->encode($item->id);
+                return $item;
+            });
+
         return Inertia::render('web/news/article', [
-            'article' => $article
+            'article' => $article,
+            'news' => $news
         ])->withViewData([
                     'article_meta' => [
                         'title' => $article->title,

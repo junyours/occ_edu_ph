@@ -65,7 +65,7 @@ export default function Linkage() {
                 </div>
             </div>
             <div className="max-w-6xl mx-auto p-4 md:p-6 space-y-8">
-                <div className="flex">
+                <div className="flex max-md:flex-col">
                     <div className="min-w-64 h-fit flex flex-col">
                         <button
                             onClick={() => setTabs("about")}
@@ -197,17 +197,17 @@ export default function Linkage() {
                             <h1 className="text-center text-slate-800 text-lg font-semibold uppercase">
                                 Meet Our Team
                             </h1>
-                            <div className="grid grid-cols-3 gap-6">
+                            <div className="grid md:grid-cols-3 gap-6">
                                 {items.map((item, index) => (
                                     <div
                                         key={index}
                                         className={
                                             index === 0
-                                                ? "col-span-3 flex justify-center"
+                                                ? "md:col-span-3 md:flex md:justify-center"
                                                 : ""
                                         }
                                     >
-                                        <div className="border w-full max-w-xs">
+                                        <div className="border w-full md:max-w-xs">
                                             <img
                                                 src={item.image}
                                                 alt={item.name}
@@ -244,7 +244,7 @@ export default function Linkage() {
                                 <a
                                     href="mailto:alma.gurrea@occ.edu.ph"
                                     target="_blank"
-                                    className="hover:underline text-blue-500"
+                                    className="hover:underline text-blue-700"
                                 >
                                     alma.gurrea@occ.edu.ph
                                 </a>

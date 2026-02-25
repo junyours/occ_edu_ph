@@ -1,7 +1,7 @@
 import { ImageZoom } from "@/components/ui/shadcn-io/image-zoom";
 import WebLayout from "@/layouts/web-layout";
 import { PageProps } from "@/types";
-import { usePage } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { CalendarDays, MoveLeft } from "lucide-react";
 import { ReactPortal } from "react";
 
@@ -19,17 +19,24 @@ interface Article {
     sdg: Sdg[];
 }
 
+interface News {
+    hash_id: string;
+    title: string;
+    date: Date;
+}
+
 interface Props extends PageProps {
     article: Article;
+    news: News[];
 }
 
 export default function Article() {
-    const { article } = usePage<Props>().props;
+    const { article, news } = usePage<Props>().props;
 
     return (
         <div className="md:pt-8">
-            <div className="space-y-20 max-w-3xl mx-auto p-4 md:p-6">
-                <div className="flex flex-col gap-4 md:gap-6">
+            <div className="md:flex md:gap-8 space-y-20 max-w-6xl mx-auto p-4 md:p-6">
+                <div className="flex-1 flex flex-col gap-4 md:gap-6">
                     <button
                         onClick={() => {
                             if (window.history.length > 1) {
@@ -64,7 +71,7 @@ export default function Article() {
                                             month: "long",
                                             day: "numeric",
                                             year: "numeric",
-                                        }
+                                        },
                                     )}
                                 </span>
                             </div>
@@ -87,6 +94,33 @@ export default function Article() {
                         <p className="whitespace-pre-line text-gray-600">
                             {article.description}
                         </p>
+                    </div>
+                </div>
+                <div className="md:block hidden w-80 border-l pl-8">
+                    <div className="space-y-2">
+                        <h1 className="font-semibold uppercase">Recent Post</h1>
+                        <div className="h-1 bg-slate-200 w-10" />
+                    </div>
+                    <div className="divide-y space-y-4">
+                        {news.map((post, index) => (
+                            <div key={index} className="pt-4">
+                                <Link href={`/news/article/${post.hash_id}`}>
+                                    <p className="text-sm">
+                                        {new Date(post.date).toLocaleDateString(
+                                            "en-US",
+                                            {
+                                                month: "long",
+                                                day: "numeric",
+                                                year: "numeric",
+                                            },
+                                        )}
+                                    </p>
+                                    <h1 className="line-clamp-3 font-semibold hover:underline hover:text-blue-700">
+                                        {post.title}
+                                    </h1>
+                                </Link>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
