@@ -19,4 +19,9 @@ class News extends Model
     {
         return $this->belongsToMany(Sdg::class, 'news_sdg', 'news_id', 'sdg_id');
     }
+
+    public function link()
+    {
+        return $this->hasMany(NewsLink::class, 'news_id');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Models\NewsLink;
 use App\Models\NewsSdg;
 use App\Models\Sdg;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class NewsController extends Controller
 
         $options = Sdg::select('id as value', 'name as label')->get();
 
-        $news = News::with('sdg')
+        $news = News::with('sdg', 'link')
             ->when($search, function ($query, $search) {
                 $query->where('title', 'like', "%{$search}%");
             })
@@ -39,6 +40,7 @@ class NewsController extends Controller
 
         $data = $request->validate([
             'sdg' => ['required', 'array', 'min:1'],
+            'link' => ['nullable', 'array'],
             'image' => ['required', 'mimes:jpeg,jpg,png'],
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
@@ -87,6 +89,15 @@ class NewsController extends Controller
                     'sdg_id' => $sdg['value'],
                 ]);
             }
+
+            if ($request->filled('link')) {
+                foreach ($data['link'] as $link) {
+                    NewsLink::create([
+                        'news_id' => $news->id,
+                        'link_name' => $link['value'],
+                    ]);
+                }
+            }
         }
     }
 
@@ -98,6 +109,7 @@ class NewsController extends Controller
 
         $data = $request->validate([
             'sdg' => ['sometimes', 'array', 'min:1'],
+            'link' => ['nullable', 'array'],
             'image' => ['nullable', 'mimes:jpeg,jpg,png'],
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
@@ -159,6 +171,17 @@ class NewsController extends Controller
                 ]);
             }
         }
+
+        if ($request->filled('link')) {
+            NewsLink::where('news_id', $news->id)->delete();
+
+            foreach ($data['link'] as $link) {
+                NewsLink::create([
+                    'news_id' => $news->id,
+                    'link_name' => $link['value'],
+                ]);
+            }
+        }
     }
 
     public function delete(Request $request)
@@ -169,6 +192,8 @@ class NewsController extends Controller
         Http::withToken($accessToken)->delete("https://www.googleapis.com/drive/v3/files/{$news->image}");
 
         NewsSdg::where('news_id', $news->id)->delete();
+
+        NewsLink::where('news_id', $news->id)->delete();
 
         $news->delete();
     }

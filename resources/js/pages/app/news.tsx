@@ -65,6 +65,11 @@ interface Sdg {
     name: string;
 }
 
+interface Link {
+    id: number;
+    link_name: string;
+}
+
 interface News {
     id: number | null;
     title: string;
@@ -72,6 +77,7 @@ interface News {
     date: Date | null;
     image: File | null;
     sdg: Sdg[];
+    link: Link[];
 }
 
 interface Props extends PageProps {
@@ -91,7 +97,15 @@ interface NewsProps {
     date: Date | null;
     image: File | null;
     sdg: Option[];
+    link: Option[];
 }
+
+const links: Option[] = [
+    {
+        value: "linkages",
+        label: "linkages",
+    },
+];
 
 export default function News() {
     const { search, options, news } = usePage<Props>().props;
@@ -103,6 +117,7 @@ export default function News() {
             date: null,
             image: null,
             sdg: [],
+            link: [],
         });
     const [open, setOpen] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -134,6 +149,10 @@ export default function News() {
                     value: String(s.id),
                     label: s.name,
                 })),
+                link: news.link.map((l) => ({
+                    value: String(l.link_name),
+                    label: l.link_name,
+                })),
             };
             setData(currentData);
             setInitialData(currentData);
@@ -145,6 +164,7 @@ export default function News() {
                 date: null,
                 image: null,
                 sdg: [],
+                link: [],
             };
             setData(newData);
             setInitialData(newData);
@@ -460,6 +480,15 @@ export default function News() {
                                 }
                             />
                             <InputError message={errors.date} />
+                        </div>
+                        <div className="grid w-full max-w-sm items-center gap-2">
+                            <Label>News Link</Label>
+                            <MultiSelect
+                                options={links}
+                                selected={data.link}
+                                onChange={(link) => setData("link", link)}
+                            />
+                            <InputError message={errors.link} />
                         </div>
                     </div>
                     <SheetFooter>
