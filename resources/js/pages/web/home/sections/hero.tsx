@@ -30,19 +30,21 @@ export default function Hero() {
                         </p>
                     </div>
                     <div className="hidden items-center gap-8 md:flex">
-                        <button
-                            type="button"
-                            className="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap bg-blue-700 px-5 py-3.5 tracking-wide transition-colors text-center text-white cursor-pointer"
-                        >
-                            <span className="relative z-10 transition-colors duration-300 group-hover:text-slate-800">
-                                Admission Now
-                            </span>
-                            <MoveRight
-                                strokeWidth={1.5}
-                                className="relative z-10 transition-colors duration-300 group-hover:text-slate-800"
-                            />
-                            <span className="absolute left-0 top-0 h-full w-0 bg-white transition-all duration-500 ease-out group-hover:w-full"></span>
-                        </button>
+                        <a href="https://admission.occph.com/" target="_blank">
+                            <button
+                                type="button"
+                                className="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap bg-blue-700 px-5 py-3.5 tracking-wide transition-colors text-center text-white cursor-pointer"
+                            >
+                                <span className="relative z-10 transition-colors duration-300 group-hover:text-slate-800">
+                                    Admission Now
+                                </span>
+                                <MoveRight
+                                    strokeWidth={1.5}
+                                    className="relative z-10 transition-colors duration-300 group-hover:text-slate-800"
+                                />
+                                <span className="absolute left-0 top-0 h-full w-0 bg-white transition-all duration-500 ease-out group-hover:w-full"></span>
+                            </button>
+                        </a>
                         <button
                             type="button"
                             className="relative group inline-flex justify-center items-center gap-2 whitespace-nowrap border border-white px-5 py-3.5 tracking-wide transition-colors text-center text-white cursor-pointer"

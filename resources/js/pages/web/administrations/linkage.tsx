@@ -57,7 +57,7 @@ const items: Coordinator[] = [
         image: Coor3,
     },
     {
-        name: "TRISHA C. CORELLIA",
+        name: "TRISHA AMOR C. CORILLA",
         position:
             "Coordinator, International Affairs and Linkages College of Teacher Education",
         image: Coor4,
